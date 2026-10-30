@@ -1,0 +1,2286 @@
+{
+  "project": "code-smells-project",
+  "commit_base": "6d1ce6248c3e956801010a89d8bdaab48029bf30",
+  "started_at_utc": "2026-10-30T02:09:49.449259+00:00",
+  "finished_at_utc": "2026-10-30T02:09:49.735292+00:00",
+  "versions": {
+    "python": "3.14.4",
+    "flask": "3.1.1",
+    "flask-cors": "5.0.1"
+  },
+  "isolation": "git archive em /tmp; banco descartável; dependências locais reutilizadas",
+  "runtime_adjustments": "HTTP real em loopback e porta efêmera; Flask sem debug/reloader; Node com observador SQLite somente SELECT",
+  "boots": [
+    {
+      "entry_point": "python app.py via runpy; porta isolada; debug/reloader desativados",
+      "host": "127.0.0.1",
+      "port": 46159,
+      "ready": true
+    }
+  ],
+  "source_unchanged": true,
+  "process_exit_before_cleanup": null,
+  "source_sha256": {
+    "requirements.txt": "4b1fc5a5d5023771e4d7ae312687cd2c98f3331b2497f5c82053672964fa9835",
+    "models.py": "6832a37cc4fe8632c40b5580bb3e835bc9eafc0ab1ba4249c016fbe0e7fe9345",
+    "database.py": "cb15ddec38ed506fd2655960deb4f8cad5b830846cd5e987fb28a6c633bf8707",
+    "controllers.py": "41542c293ad5b21dbcb6cb1154d068dbe35aad55e6879f6fb7fc0d72217b1b4f",
+    "app.py": "2ce0981b36199939d2100e8d788a6081637e70932e07abf61da309bfb655323c"
+  },
+  "coverage": {
+    "inventory": [
+      [
+        "DELETE",
+        "/produtos/<int:id>"
+      ],
+      [
+        "GET",
+        "/"
+      ],
+      [
+        "GET",
+        "/health"
+      ],
+      [
+        "GET",
+        "/pedidos"
+      ],
+      [
+        "GET",
+        "/pedidos/usuario/<int:usuario_id>"
+      ],
+      [
+        "GET",
+        "/produtos"
+      ],
+      [
+        "GET",
+        "/produtos/<int:id>"
+      ],
+      [
+        "GET",
+        "/produtos/busca"
+      ],
+      [
+        "GET",
+        "/relatorios/vendas"
+      ],
+      [
+        "GET",
+        "/usuarios"
+      ],
+      [
+        "GET",
+        "/usuarios/<int:id>"
+      ],
+      [
+        "POST",
+        "/admin/query"
+      ],
+      [
+        "POST",
+        "/admin/reset-db"
+      ],
+      [
+        "POST",
+        "/login"
+      ],
+      [
+        "POST",
+        "/pedidos"
+      ],
+      [
+        "POST",
+        "/produtos"
+      ],
+      [
+        "POST",
+        "/usuarios"
+      ],
+      [
+        "PUT",
+        "/pedidos/<int:pedido_id>/status"
+      ],
+      [
+        "PUT",
+        "/produtos/<int:id>"
+      ]
+    ],
+    "covered": [
+      [
+        "DELETE",
+        "/produtos/<int:id>"
+      ],
+      [
+        "GET",
+        "/"
+      ],
+      [
+        "GET",
+        "/health"
+      ],
+      [
+        "GET",
+        "/pedidos"
+      ],
+      [
+        "GET",
+        "/pedidos/usuario/<int:usuario_id>"
+      ],
+      [
+        "GET",
+        "/produtos"
+      ],
+      [
+        "GET",
+        "/produtos/<int:id>"
+      ],
+      [
+        "GET",
+        "/produtos/busca"
+      ],
+      [
+        "GET",
+        "/relatorios/vendas"
+      ],
+      [
+        "GET",
+        "/usuarios"
+      ],
+      [
+        "GET",
+        "/usuarios/<int:id>"
+      ],
+      [
+        "POST",
+        "/admin/query"
+      ],
+      [
+        "POST",
+        "/admin/reset-db"
+      ],
+      [
+        "POST",
+        "/login"
+      ],
+      [
+        "POST",
+        "/pedidos"
+      ],
+      [
+        "POST",
+        "/produtos"
+      ],
+      [
+        "POST",
+        "/usuarios"
+      ],
+      [
+        "PUT",
+        "/pedidos/<int:pedido_id>/status"
+      ],
+      [
+        "PUT",
+        "/produtos/<int:id>"
+      ]
+    ],
+    "uncovered": [],
+    "declared_inventory_matches_runtime": true
+  },
+  "case_count": 39,
+  "deviation_count": 12,
+  "findings": [
+    "GET /health expõe secret_key no JSON; o valor foi mascarado nas evidências.",
+    "GET /produtos/busca?preco_min=abc retorna 500 por conversão numérica sem tratamento.",
+    "GET /usuarios inclui senha em cada usuário; valores foram mascarados.",
+    "POST /usuarios persiste a senha recebida em texto puro, confirmado por leitura do SQLite isolado.",
+    "POST /produtos com preco textual retorna 500 em comparação de tipos incompatíveis.",
+    "Nome comum com apóstrofo falha em POST /produtos (500), evidenciando SQL construído por concatenação; não houve payload de ataque.",
+    "PUT /pedidos/999999/status informa sucesso para pedido inexistente, sem verificar linhas alteradas.",
+    "POST /pedidos aceita quantidade negativa: retorna total negativo e persiste pedido, aumentando o estoque; criação e estoque foram confirmados no SQLite.",
+    "POST /pedidos cria pedido com usuario_id inexistente; a integridade referencial não é aplicada.",
+    "POST /admin/query executa consulta SQL sem autenticação/autorização; a baseline usou apenas SELECT COUNT(*).",
+    "POST /admin/reset-db apaga as quatro tabelas sem autorização, confirmado pela contagem de registros antes/depois no banco isolado."
+  ],
+  "limitations": [],
+  "execution_error": null,
+  "cases": [
+    {
+      "id": "P1-01",
+      "name": "Página inicial",
+      "method": "GET",
+      "path": "/",
+      "route": "/",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Versão da API",
+          "actual": "1.0.0",
+          "expected": "1.0.0",
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "endpoints": {
+          "health": "/health",
+          "login": "/login",
+          "pedidos": "/pedidos",
+          "produtos": "/produtos",
+          "relatorios": "/relatorios/vendas",
+          "usuarios": "/usuarios"
+        },
+        "mensagem": "Bem-vindo à API da Loja",
+        "versao": "1.0.0"
+      },
+      "duration_ms": 1.69,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-02",
+      "name": "Health e estado inicial do banco",
+      "method": "GET",
+      "path": "/health",
+      "route": "/health",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Conexão com SQLite",
+          "actual": "connected",
+          "expected": "connected",
+          "ok": true
+        },
+        {
+          "name": "Produtos seed",
+          "actual": 10,
+          "expected": 10,
+          "ok": true
+        },
+        {
+          "name": "Usuários seed",
+          "actual": 3,
+          "expected": 3,
+          "ok": true
+        },
+        {
+          "name": "Pedidos iniciais",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        },
+        {
+          "name": "Health não expõe segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "ambiente": "producao",
+        "counts": {
+          "pedidos": 0,
+          "produtos": 10,
+          "usuarios": 3
+        },
+        "database": "connected",
+        "db_path": "loja.db",
+        "debug": true,
+        "secret_key": "[MASCARADO]",
+        "status": "ok",
+        "versao": "1.0.0"
+      },
+      "duration_ms": 1.29,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-03",
+      "name": "Listagem dos produtos seed",
+      "method": "GET",
+      "path": "/produtos",
+      "route": "/produtos",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Quantidade inicial de produtos",
+          "actual": 10,
+          "expected": 10,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": [
+          {
+            "ativo": 1,
+            "categoria": "informatica",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Notebook potente para jogos",
+            "estoque": 10,
+            "id": 1,
+            "nome": "Notebook Gamer",
+            "preco": 5999.99
+          },
+          {
+            "ativo": 1,
+            "categoria": "informatica",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Mouse sem fio ergonômico",
+            "estoque": 50,
+            "id": 2,
+            "nome": "Mouse Wireless",
+            "preco": 89.9
+          },
+          {
+            "ativo": 1,
+            "categoria": "informatica",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Teclado mecânico RGB",
+            "estoque": 30,
+            "id": 3,
+            "nome": "Teclado Mecânico",
+            "preco": 299.9
+          },
+          {
+            "ativo": 1,
+            "categoria": "informatica",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Monitor 27 polegadas 144hz",
+            "estoque": 15,
+            "id": 4,
+            "nome": "Monitor 27''",
+            "preco": 1899.9
+          },
+          {
+            "ativo": 1,
+            "categoria": "informatica",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Headset com microfone",
+            "estoque": 25,
+            "id": 5,
+            "nome": "Headset Gamer",
+            "preco": 199.9
+          },
+          {
+            "ativo": 1,
+            "categoria": "moveis",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Cadeira ergonômica",
+            "estoque": 8,
+            "id": 6,
+            "nome": "Cadeira Gamer",
+            "preco": 1299.9
+          },
+          {
+            "ativo": 1,
+            "categoria": "informatica",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Webcam 1080p",
+            "estoque": 20,
+            "id": 7,
+            "nome": "Webcam HD",
+            "preco": 249.9
+          },
+          {
+            "ativo": 1,
+            "categoria": "informatica",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Hub USB 3.0 7 portas",
+            "estoque": 40,
+            "id": 8,
+            "nome": "Hub USB",
+            "preco": 79.9
+          },
+          {
+            "ativo": 1,
+            "categoria": "informatica",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "SSD NVMe 1TB",
+            "estoque": 35,
+            "id": 9,
+            "nome": "SSD 1TB",
+            "preco": 449.9
+          },
+          {
+            "ativo": 1,
+            "categoria": "vestuario",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Camiseta estampa código",
+            "estoque": 100,
+            "id": 10,
+            "nome": "Camiseta Dev",
+            "preco": 59.9
+          }
+        ],
+        "sucesso": true
+      },
+      "duration_ms": 1.24,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-04",
+      "name": "Detalhe de produto existente",
+      "method": "GET",
+      "path": "/produtos/2",
+      "route": "/produtos/<int:id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "ID do produto",
+          "actual": 2,
+          "expected": 2,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": {
+          "ativo": 1,
+          "categoria": "informatica",
+          "criado_em": "2026-10-30 02:09:49",
+          "descricao": "Mouse sem fio ergonômico",
+          "estoque": 50,
+          "id": 2,
+          "nome": "Mouse Wireless",
+          "preco": 89.9
+        },
+        "sucesso": true
+      },
+      "duration_ms": 1.4,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-05",
+      "name": "Produto inexistente",
+      "method": "GET",
+      "path": "/produtos/999999",
+      "route": "/produtos/<int:id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Produto não encontrado",
+        "sucesso": false
+      },
+      "duration_ms": 1.22,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-06",
+      "name": "Busca por termo, categoria e preço",
+      "method": "GET",
+      "path": "/produtos/busca?q=Mouse&categoria=informatica&preco_min=80&preco_max=100",
+      "route": "/produtos/busca",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Busca retorna somente Mouse",
+          "actual": [
+            2
+          ],
+          "expected": [
+            2
+          ],
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": [
+          {
+            "ativo": 1,
+            "categoria": "informatica",
+            "criado_em": "2026-10-30 02:09:49",
+            "descricao": "Mouse sem fio ergonômico",
+            "estoque": 50,
+            "id": 2,
+            "nome": "Mouse Wireless",
+            "preco": 89.9
+          }
+        ],
+        "sucesso": true,
+        "total": 1
+      },
+      "duration_ms": 1.28,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-07",
+      "name": "Filtro de preço com tipo inválido",
+      "method": "GET",
+      "path": "/produtos/busca?preco_min=abc",
+      "route": "/produtos/busca",
+      "request": null,
+      "expected_status": 400,
+      "expectation": "Entrada inválida deve ser rejeitada com 400, sem erro interno.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 500,
+      "content_type": "application/json",
+      "body": {
+        "erro": "could not convert string to float: 'abc'"
+      },
+      "duration_ms": 1.02,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-08",
+      "name": "Listagem de usuários",
+      "method": "GET",
+      "path": "/usuarios",
+      "route": "/usuarios",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Listagem não expõe senhas",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": [
+          {
+            "criado_em": "2026-10-30 02:09:49",
+            "email": "admin@loja.com",
+            "id": 1,
+            "nome": "Admin",
+            "senha": "[MASCARADO]",
+            "tipo": "admin"
+          },
+          {
+            "criado_em": "2026-10-30 02:09:49",
+            "email": "joao@email.com",
+            "id": 2,
+            "nome": "João Silva",
+            "senha": "[MASCARADO]",
+            "tipo": "cliente"
+          },
+          {
+            "criado_em": "2026-10-30 02:09:49",
+            "email": "maria@email.com",
+            "id": 3,
+            "nome": "Maria Santos",
+            "senha": "[MASCARADO]",
+            "tipo": "cliente"
+          }
+        ],
+        "sucesso": true
+      },
+      "duration_ms": 0.95,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-09",
+      "name": "Detalhe de usuário existente",
+      "method": "GET",
+      "path": "/usuarios/1",
+      "route": "/usuarios/<int:id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Detalhe não expõe senha",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": {
+          "criado_em": "2026-10-30 02:09:49",
+          "email": "admin@loja.com",
+          "id": 1,
+          "nome": "Admin",
+          "senha": "[MASCARADO]",
+          "tipo": "admin"
+        },
+        "sucesso": true
+      },
+      "duration_ms": 1.24,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-10",
+      "name": "Usuário inexistente",
+      "method": "GET",
+      "path": "/usuarios/999999",
+      "route": "/usuarios/<int:id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Usuário não encontrado"
+      },
+      "duration_ms": 1.18,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-11",
+      "name": "Criação de usuário de teste",
+      "method": "POST",
+      "path": "/usuarios",
+      "route": "/usuarios",
+      "request": {
+        "nome": "Pessoa Baseline",
+        "email": "baseline.loja@example.test",
+        "senha": "[MASCARADO]"
+      },
+      "expected_status": 201,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Usuário persistido uma vez",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Senha não armazenada em texto puro",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 3,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "dados": {
+          "id": 4
+        },
+        "sucesso": true
+      },
+      "duration_ms": 1.32,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-12",
+      "name": "Usuário sem campos obrigatórios",
+      "method": "POST",
+      "path": "/usuarios",
+      "route": "/usuarios",
+      "request": {
+        "nome": "Incompleto"
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Nome, email e senha são obrigatórios"
+      },
+      "duration_ms": 1.49,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-13",
+      "name": "Login válido",
+      "method": "POST",
+      "path": "/login",
+      "route": "/login",
+      "request": {
+        "email": "baseline.loja@example.test",
+        "senha": "[MASCARADO]"
+      },
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Login identifica o usuário criado",
+          "actual": 4,
+          "expected": 4,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": {
+          "email": "baseline.loja@example.test",
+          "id": 4,
+          "nome": "Pessoa Baseline",
+          "tipo": "cliente"
+        },
+        "mensagem": "Login OK",
+        "sucesso": true
+      },
+      "duration_ms": 1.7,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-14",
+      "name": "Login com senha incorreta",
+      "method": "POST",
+      "path": "/login",
+      "route": "/login",
+      "request": {
+        "email": "baseline.loja@example.test",
+        "senha": "[MASCARADO]"
+      },
+      "expected_status": 401,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 401,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Email ou senha inválidos",
+        "sucesso": false
+      },
+      "duration_ms": 1.21,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-15",
+      "name": "Login sem campos obrigatórios",
+      "method": "POST",
+      "path": "/login",
+      "route": "/login",
+      "request": {},
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Email e senha são obrigatórios"
+      },
+      "duration_ms": 1.54,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-16",
+      "name": "Criação de produto de teste",
+      "method": "POST",
+      "path": "/produtos",
+      "route": "/produtos",
+      "request": {
+        "nome": "Produto Baseline",
+        "descricao": "Registro descartável",
+        "preco": 25.0,
+        "estoque": 12,
+        "categoria": "geral"
+      },
+      "expected_status": 201,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Produto persistido uma vez",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Preço persistido",
+          "actual": 25.0,
+          "expected": 25.0,
+          "ok": true
+        },
+        {
+          "name": "Estoque persistido",
+          "actual": 12,
+          "expected": 12,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "dados": {
+          "id": 11
+        },
+        "mensagem": "Produto criado",
+        "sucesso": true
+      },
+      "duration_ms": 1.13,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-17",
+      "name": "Edição de produto de teste",
+      "method": "PUT",
+      "path": "/produtos/11",
+      "route": "/produtos/<int:id>",
+      "request": {
+        "nome": "Produto Baseline Editado",
+        "descricao": "Registro descartável",
+        "preco": 27.5,
+        "estoque": 15,
+        "categoria": "geral"
+      },
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Edição persistida",
+          "actual": {
+            "nome": "Produto Baseline Editado",
+            "preco": 27.5,
+            "estoque": 15
+          },
+          "expected": {
+            "nome": "Produto Baseline Editado",
+            "preco": 27.5,
+            "estoque": 15
+          },
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "mensagem": "Produto atualizado",
+        "sucesso": true
+      },
+      "duration_ms": 1.51,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-18",
+      "name": "Produto com preço negativo",
+      "method": "POST",
+      "path": "/produtos",
+      "route": "/produtos",
+      "request": {
+        "nome": "Produto Baseline",
+        "descricao": "Registro descartável",
+        "preco": -1,
+        "estoque": 12,
+        "categoria": "geral"
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Preço não pode ser negativo"
+      },
+      "duration_ms": 1.13,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-19",
+      "name": "Produto com preço textual",
+      "method": "POST",
+      "path": "/produtos",
+      "route": "/produtos",
+      "request": {
+        "nome": "Produto Baseline",
+        "descricao": "Registro descartável",
+        "preco": "abc",
+        "estoque": 12,
+        "categoria": "geral"
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 500,
+      "content_type": "application/json",
+      "body": {
+        "erro": "'<' not supported between instances of 'str' and 'int'"
+      },
+      "duration_ms": 1.11,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-20",
+      "name": "Produto com apóstrofo no nome",
+      "method": "POST",
+      "path": "/produtos",
+      "route": "/produtos",
+      "request": {
+        "nome": "Caderno d'água",
+        "descricao": "Registro descartável",
+        "preco": 25.0,
+        "estoque": 12,
+        "categoria": "geral"
+      },
+      "expected_status": 201,
+      "expectation": "Um apóstrofo em nome comum deve ser persistido como dado, sem quebrar o SQL.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 500,
+      "content_type": "application/json",
+      "body": {
+        "erro": "near \"água\": syntax error"
+      },
+      "duration_ms": 1.1,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-21",
+      "name": "Edição de produto inexistente",
+      "method": "PUT",
+      "path": "/produtos/999999",
+      "route": "/produtos/<int:id>",
+      "request": {
+        "nome": "Produto Baseline",
+        "descricao": "Registro descartável",
+        "preco": 25.0,
+        "estoque": 12,
+        "categoria": "geral"
+      },
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Produto não encontrado"
+      },
+      "duration_ms": 1.39,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    },
+    {
+      "id": "P1-22",
+      "name": "Pedido válido com dois itens do mesmo produto",
+      "method": "POST",
+      "path": "/pedidos",
+      "route": "/pedidos",
+      "request": {
+        "usuario_id": 4,
+        "itens": [
+          {
+            "produto_id": 2,
+            "quantidade": 2
+          }
+        ]
+      },
+      "expected_status": 201,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Total da resposta",
+          "actual": 179.8,
+          "expected": 179.8,
+          "ok": true
+        },
+        {
+          "name": "Estoque reduzido pela quantidade pedida",
+          "actual": 48,
+          "expected": 48,
+          "ok": true
+        },
+        {
+          "name": "Pedido persistido",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Total persistido",
+          "actual": 179.8,
+          "expected": 179.8,
+          "ok": true
+        },
+        {
+          "name": "Usuário do pedido",
+          "actual": 4,
+          "expected": 4,
+          "ok": true
+        },
+        {
+          "name": "Uma linha de item persistida",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Quantidade persistida",
+          "actual": 2,
+          "expected": 2,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 0,
+        "itens_pedido": 0
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "dados": {
+          "pedido_id": 1,
+          "total": 179.8
+        },
+        "mensagem": "Pedido criado com sucesso",
+        "sucesso": true
+      },
+      "duration_ms": 1.42,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-23",
+      "name": "Listagem geral de pedidos",
+      "method": "GET",
+      "path": "/pedidos",
+      "route": "/pedidos",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Pedido criado presente",
+          "actual": true,
+          "expected": true,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": [
+          {
+            "criado_em": "2026-10-30 02:09:49",
+            "id": 1,
+            "itens": [
+              {
+                "preco_unitario": 89.9,
+                "produto_id": 2,
+                "produto_nome": "Mouse Wireless",
+                "quantidade": 2
+              }
+            ],
+            "status": "pendente",
+            "total": 179.8,
+            "usuario_id": 4
+          }
+        ],
+        "sucesso": true
+      },
+      "duration_ms": 0.98,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-24",
+      "name": "Pedidos do usuário",
+      "method": "GET",
+      "path": "/pedidos/usuario/4",
+      "route": "/pedidos/usuario/<int:usuario_id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Pedido aparece para seu usuário",
+          "actual": true,
+          "expected": true,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": [
+          {
+            "criado_em": "2026-10-30 02:09:49",
+            "id": 1,
+            "itens": [
+              {
+                "preco_unitario": 89.9,
+                "produto_id": 2,
+                "produto_nome": "Mouse Wireless",
+                "quantidade": 2
+              }
+            ],
+            "status": "pendente",
+            "total": 179.8,
+            "usuario_id": 4
+          }
+        ],
+        "sucesso": true
+      },
+      "duration_ms": 0.92,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-25",
+      "name": "Aprovação de pedido",
+      "method": "PUT",
+      "path": "/pedidos/1/status",
+      "route": "/pedidos/<int:pedido_id>/status",
+      "request": {
+        "status": "aprovado"
+      },
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Status aprovado persistido",
+          "actual": "aprovado",
+          "expected": "aprovado",
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "mensagem": "Status atualizado",
+        "sucesso": true
+      },
+      "duration_ms": 1.45,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-26",
+      "name": "Status de pedido inválido",
+      "method": "PUT",
+      "path": "/pedidos/1/status",
+      "route": "/pedidos/<int:pedido_id>/status",
+      "request": {
+        "status": "inventado"
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Status anterior preservado",
+          "actual": "aprovado",
+          "expected": "aprovado",
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Status inválido"
+      },
+      "duration_ms": 1.23,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-27",
+      "name": "Atualização de pedido inexistente",
+      "method": "PUT",
+      "path": "/pedidos/999999/status",
+      "route": "/pedidos/<int:pedido_id>/status",
+      "request": {
+        "status": "enviado"
+      },
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "mensagem": "Status atualizado",
+        "sucesso": true
+      },
+      "duration_ms": 1.2,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-28",
+      "name": "Relatório após pedido aprovado",
+      "method": "GET",
+      "path": "/relatorios/vendas",
+      "route": "/relatorios/vendas",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Um pedido contabilizado",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Faturamento bruto",
+          "actual": 179.8,
+          "expected": 179.8,
+          "ok": true
+        },
+        {
+          "name": "Pedido aprovado contabilizado",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": {
+          "desconto_aplicavel": 0,
+          "faturamento_bruto": 179.8,
+          "faturamento_liquido": 179.8,
+          "pedidos_aprovados": 1,
+          "pedidos_cancelados": 0,
+          "pedidos_pendentes": 0,
+          "ticket_medio": 179.8,
+          "total_pedidos": 1
+        },
+        "sucesso": true
+      },
+      "duration_ms": 1.23,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-29",
+      "name": "Pedido com estoque insuficiente",
+      "method": "POST",
+      "path": "/pedidos",
+      "route": "/pedidos",
+      "request": {
+        "usuario_id": 4,
+        "itens": [
+          {
+            "produto_id": 2,
+            "quantidade": 49
+          }
+        ]
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Pedido recusado não persistido",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Estoque preservado",
+          "actual": 48,
+          "expected": 48,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Estoque insuficiente para Mouse Wireless",
+        "sucesso": false
+      },
+      "duration_ms": 1.3,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-30",
+      "name": "Pedido com produto inexistente",
+      "method": "POST",
+      "path": "/pedidos",
+      "route": "/pedidos",
+      "request": {
+        "usuario_id": 4,
+        "itens": [
+          {
+            "produto_id": 999999,
+            "quantidade": 1
+          }
+        ]
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Produto 999999 não encontrado",
+        "sucesso": false
+      },
+      "duration_ms": 1.12,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-31",
+      "name": "Pedido sem itens",
+      "method": "POST",
+      "path": "/pedidos",
+      "route": "/pedidos",
+      "request": {
+        "usuario_id": 4,
+        "itens": []
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Pedido deve ter pelo menos 1 item"
+      },
+      "duration_ms": 0.94,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      }
+    },
+    {
+      "id": "P1-32",
+      "name": "Pedido com quantidade negativa",
+      "method": "POST",
+      "path": "/pedidos",
+      "route": "/pedidos",
+      "request": {
+        "usuario_id": 4,
+        "itens": [
+          {
+            "produto_id": 2,
+            "quantidade": -2
+          }
+        ]
+      },
+      "expected_status": 400,
+      "expectation": "Quantidade negativa deve ser recusada sem criar pedido nem aumentar estoque.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Quantidade negativa não cria pedido",
+          "actual": 2,
+          "expected": 1,
+          "ok": false
+        },
+        {
+          "name": "Quantidade negativa não altera estoque",
+          "actual": 50,
+          "expected": 48,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 1,
+        "itens_pedido": 1
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "dados": {
+          "pedido_id": 2,
+          "total": -179.8
+        },
+        "mensagem": "Pedido criado com sucesso",
+        "sucesso": true
+      },
+      "duration_ms": 1.15,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 2,
+        "itens_pedido": 2
+      }
+    },
+    {
+      "id": "P1-33",
+      "name": "Pedido para usuário inexistente",
+      "method": "POST",
+      "path": "/pedidos",
+      "route": "/pedidos",
+      "request": {
+        "usuario_id": 999999,
+        "itens": [
+          {
+            "produto_id": 2,
+            "quantidade": 1
+          }
+        ]
+      },
+      "expected_status": [
+        400,
+        404
+      ],
+      "expectation": "A relação de usuário deve ser validada antes de persistir o pedido.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Pedido órfão não persistido",
+          "actual": 1,
+          "expected": 0,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 2,
+        "itens_pedido": 2
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "dados": {
+          "pedido_id": 3,
+          "total": 89.9
+        },
+        "mensagem": "Pedido criado com sucesso",
+        "sucesso": true
+      },
+      "duration_ms": 1.38,
+      "db_after": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      }
+    },
+    {
+      "id": "P1-34",
+      "name": "Exclusão de produto de teste",
+      "method": "DELETE",
+      "path": "/produtos/11",
+      "route": "/produtos/<int:id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Produto removido do banco",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 11,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "mensagem": "Produto deletado",
+        "sucesso": true
+      },
+      "duration_ms": 1.26,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      }
+    },
+    {
+      "id": "P1-35",
+      "name": "Exclusão repetida de produto",
+      "method": "DELETE",
+      "path": "/produtos/11",
+      "route": "/produtos/<int:id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Produto não encontrado"
+      },
+      "duration_ms": 1.24,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      }
+    },
+    {
+      "id": "P1-36",
+      "name": "Exclusão de produto inexistente",
+      "method": "DELETE",
+      "path": "/produtos/999999",
+      "route": "/produtos/<int:id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Produto não encontrado"
+      },
+      "duration_ms": 1.14,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      }
+    },
+    {
+      "id": "P1-37",
+      "name": "Consulta administrativa sem autorização",
+      "method": "POST",
+      "path": "/admin/query",
+      "route": "/admin/query",
+      "request": {
+        "sql": "SELECT COUNT(*) AS total FROM produtos"
+      },
+      "expected_status": [
+        401,
+        403
+      ],
+      "expectation": "Sem autenticação, uma rota administrativa deve negar a operação.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [
+        "Consulta somente de leitura, executada exclusivamente contra o banco descartável da baseline."
+      ],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "dados": [
+          {
+            "total": 10
+          }
+        ],
+        "sucesso": true
+      },
+      "duration_ms": 0.92,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      }
+    },
+    {
+      "id": "P1-38",
+      "name": "Consulta administrativa sem SQL",
+      "method": "POST",
+      "path": "/admin/query",
+      "route": "/admin/query",
+      "request": {},
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "erro": "Query não informada"
+      },
+      "duration_ms": 0.88,
+      "db_after": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      }
+    },
+    {
+      "id": "P1-39",
+      "name": "Reset administrativo sem autorização (último cenário)",
+      "method": "POST",
+      "path": "/admin/reset-db",
+      "route": "/admin/reset-db",
+      "request": {},
+      "expected_status": [
+        401,
+        403
+      ],
+      "expectation": "Sem autenticação, a exclusão dos dados deve ser negada.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Dados preservados contra reset sem autorização",
+          "actual": {
+            "produtos": 0,
+            "usuarios": 0,
+            "pedidos": 0,
+            "itens_pedido": 0
+          },
+          "expected": {
+            "produtos": 10,
+            "usuarios": 4,
+            "pedidos": 3,
+            "itens_pedido": 3
+          },
+          "ok": false
+        }
+      ],
+      "notes": [
+        "O reset foi o último cenário e atingiu somente o SQLite criado em diretório temporário; bancos do workspace não foram usados."
+      ],
+      "db_before": {
+        "produtos": 10,
+        "usuarios": 4,
+        "pedidos": 3,
+        "itens_pedido": 3
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "mensagem": "Banco de dados resetado",
+        "sucesso": true
+      },
+      "duration_ms": 1.11,
+      "db_after": {
+        "produtos": 0,
+        "usuarios": 0,
+        "pedidos": 0,
+        "itens_pedido": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+seed stdout: Seed concluído com sucesso!
+  3 usuários
+  4 categorias
+  10 tasks
+seed stderr: <workspace-temporario>/task-manager-api/seed.py:66: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  {'title': 'Implementar autenticação JWT', 'description': 'Adicionar autenticação real com JWT', 'status': 'pending', 'priority': 1, 'user_id': u1.id, 'category_id': c1.id, 'due_date': datetime.utcnow() - timedelta(days=3)},
+<workspace-temporario>/task-manager-api/seed.py:67: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  {'title': 'Criar tela de login', 'description': 'Tela de login responsiva', 'status': 'in_progress', 'priority': 2, 'user_id': u2.id, 'category_id': c2.id, 'due_date': datetime.utcnow() + timedelta(days=5)},
+<workspace-temporario>/task-manager-api/seed.py:69: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  {'title': 'Corrigir bug no filtro de busca', 'description': 'Filtro não funciona com caracteres especiais', 'status': 'pending', 'priority': 1, 'user_id': u1.id, 'category_id': c4.id, 'due_date': datetime.utcnow() - timedelta(days=1)},
+<workspace-temporario>/task-manager-api/seed.py:70: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  {'title': 'Adicionar paginação na API', 'description': 'Endpoints retornam todos os registros', 'status': 'pending', 'priority': 3, 'user_id': u1.id, 'category_id': c1.id, 'due_date': datetime.utcnow() + timedelta(days=10)},
+<workspace-temporario>/task-manager-api/seed.py:74: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  {'title': 'Configurar monitoramento', 'description': 'Prometheus + Grafana', 'status': 'pending', 'priority': 4, 'user_id': u3.id, 'category_id': c3.id, 'due_date': datetime.utcnow() + timedelta(days=20)},
+stdout:  * Serving Flask app 'app'
+stdout:  * Debug mode: off
+stderr: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+stderr:  * Running on http://127.0.0.1:45487
+stderr: [33mPress CTRL+C to quit[0m
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET / HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /health HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /tasks HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /tasks/stats HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /users HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /categories HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /reports/summary HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /users/1 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /users/1/tasks HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /reports/user/1 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mGET /tasks/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mGET /users/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mGET /users/999999/tasks HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mGET /reports/user/999999 HTTP/1.1[0m" 404 -
+stdout: Usuário criado: 4 - Baseline Task User
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[35m[1mPOST /users HTTP/1.1[0m" 201 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /users HTTP/1.1[0m" 409 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "POST /login HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /login HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[35m[1mPOST /categories HTTP/1.1[0m" 201 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /categories HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mPUT /categories/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mDELETE /categories/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "PUT /categories/5 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "PUT /users/4 HTTP/1.1" 200 -
+stdout: Task criada: 11 - Baseline synthetic task
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[35m[1mPOST /tasks HTTP/1.1[0m" 201 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /tasks/search?q=Baseline&status=pending&priority=2&user_id=4 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /tasks/11 HTTP/1.1" 200 -
+stdout: Task atualizada: 11
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "PUT /tasks/11 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /tasks/11 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /tasks HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /tasks HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /tasks HTTP/1.1[0m" 400 -
+stderr: [2026-10-29 23:09:50,682] ERROR in app: Exception on /tasks [POST]
+stderr: Traceback (most recent call last):
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 1455, in wsgi_app
+stderr:     response = self.full_dispatch_request()
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 869, in full_dispatch_request
+stderr:     rv = self.handle_user_exception(e)
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+stderr:     return cors_after_request(app.make_response(f(*args, **kwargs)))
+stderr:                                                 ~^^^^^^^^^^^^^^^^^
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 867, in full_dispatch_request
+stderr:     rv = self.dispatch_request()
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 852, in dispatch_request
+stderr:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+stderr:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+stderr:   File "<workspace-temporario>/task-manager-api/routes/task_routes.py", line 113, in create_task
+stderr:     if priority < 1 or priority > 5:
+stderr:        ^^^^^^^^^^^^
+stderr: TypeError: '<' not supported between instances of 'str' and 'int'
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[35m[1mPOST /tasks HTTP/1.1[0m" 500 -
+stderr: [2026-10-29 23:09:50,686] ERROR in app: Exception on /tasks [POST]
+stderr: Traceback (most recent call last):
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 1455, in wsgi_app
+stderr:     response = self.full_dispatch_request()
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 869, in full_dispatch_request
+stderr:     rv = self.handle_user_exception(e)
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+stderr:     return cors_after_request(app.make_response(f(*args, **kwargs)))
+stderr:                                                 ~^^^^^^^^^^^^^^^^^
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 867, in full_dispatch_request
+stderr:     rv = self.dispatch_request()
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 852, in dispatch_request
+stderr:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+stderr:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+stderr:   File "<workspace-temporario>/task-manager-api/routes/task_routes.py", line 96, in create_task
+stderr:     if len(title) < 3:
+stderr:        ~~~^^^^^^^
+stderr: TypeError: object of type 'int' has no len()
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[35m[1mPOST /tasks HTTP/1.1[0m" 500 -
+stderr: [2026-10-29 23:09:50,689] ERROR in app: Exception on /tasks/search [GET]
+stderr: Traceback (most recent call last):
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 1455, in wsgi_app
+stderr:     response = self.full_dispatch_request()
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 869, in full_dispatch_request
+stderr:     rv = self.handle_user_exception(e)
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+stderr:     return cors_after_request(app.make_response(f(*args, **kwargs)))
+stderr:                                                 ~^^^^^^^^^^^^^^^^^
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 867, in full_dispatch_request
+stderr:     rv = self.dispatch_request()
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 852, in dispatch_request
+stderr:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+stderr:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+stderr:   File "<workspace-temporario>/task-manager-api/routes/task_routes.py", line 261, in search_tasks
+stderr:     tasks = tasks.filter(Task.priority == int(priority))
+stderr:                                           ~~~^^^^^^^^^^
+stderr: ValueError: invalid literal for int() with base 10: 'alta'
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[35m[1mGET /tasks/search?priority=alta HTTP/1.1[0m" 500 -
+stderr: [2026-10-29 23:09:50,692] ERROR in app: Exception on /tasks/search [GET]
+stderr: Traceback (most recent call last):
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 1455, in wsgi_app
+stderr:     response = self.full_dispatch_request()
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 869, in full_dispatch_request
+stderr:     rv = self.handle_user_exception(e)
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+stderr:     return cors_after_request(app.make_response(f(*args, **kwargs)))
+stderr:                                                 ~^^^^^^^^^^^^^^^^^
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 867, in full_dispatch_request
+stderr:     rv = self.dispatch_request()
+stderr:   File "/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/task-manager-api/.venv/lib/python3.14/site-packages/flask/app.py", line 852, in dispatch_request
+stderr:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+stderr:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+stderr:   File "<workspace-temporario>/task-manager-api/routes/task_routes.py", line 264, in search_tasks
+stderr:     tasks = tasks.filter(Task.user_id == int(user_id))
+stderr:                                          ~~~^^^^^^^^^
+stderr: ValueError: invalid literal for int() with base 10: 'invalid'
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[35m[1mGET /tasks/search?user_id=invalid HTTP/1.1[0m" 500 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mPOST /tasks HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mPOST /tasks HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /tasks HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mPUT /tasks/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mDELETE /tasks/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mPUT /users/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[33mDELETE /users/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "PUT /users/4 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[31m[1mPOST /login HTTP/1.1[0m" 403 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "PUT /users/4 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "PUT /users/4 HTTP/1.1" 200 -
+stdout: Usuário criado: 5 - Baseline Admin Request
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[35m[1mPOST /users HTTP/1.1[0m" 201 -
+stdout: Task deletada: 11
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "DELETE /tasks/11 HTTP/1.1" 200 -
+stdout: Task criada: 11 - Baseline cascade task
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "[35m[1mPOST /tasks HTTP/1.1[0m" 201 -
+stdout: Usuário deletado: 4
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "DELETE /users/4 HTTP/1.1" 200 -
+stdout: Usuário deletado: 5
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "DELETE /users/5 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "DELETE /categories/5 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:50] "GET /reports/summary HTTP/1.1" 200 -

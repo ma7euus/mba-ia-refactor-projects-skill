@@ -1,0 +1,21 @@
+stdout: Frankenstein LMS rodando na porta 37895...
+[linha com dados potencialmente sensíveis omitida]
+stdout: [LOG] Salvando no cache: last_checkout_2
+[linha com dados potencialmente sensíveis omitida]
+stdout: [LOG] Salvando no cache: last_checkout_2
+[linha com dados potencialmente sensíveis omitida]
+[linha com dados potencialmente sensíveis omitida]
+stdout: [LOG] Salvando no cache: last_checkout_4
+[linha com dados potencialmente sensíveis omitida]
+stdout: [LOG] Salvando no cache: last_checkout_5
+[linha com dados potencialmente sensíveis omitida]
+stderr: <workspace-temporario>/ecommerce-api-legacy/src/AppManager.js:46
+stderr:                         let status = cc.startsWith("4") ? "PAID" : "DENIED";
+stderr:                                         ^
+stderr: 
+stderr: TypeError: cc.startsWith is not a function
+stderr:     at processPaymentAndEnroll (<workspace-temporario>/ecommerce-api-legacy/src/AppManager.js:46:41)
+stderr:     at Statement.<anonymous> (<workspace-temporario>/ecommerce-api-legacy/src/AppManager.js:71:29)
+stderr:     at Statement.replacement (/home/mateus/projetos/mateus/mba/mba-ia-refactor-projects-skill/ecommerce-api-legacy/node_modules/sqlite3/lib/trace.js:25:27)
+stderr: 
+stderr: Node.js v24.19.0

@@ -4,6 +4,37 @@ Ao longo do curso você aprendeu o que são Skills e como elas permitem que um a
 
 Neste desafio, você vai criar uma Skill que automatiza esse processo — analisando, auditando e refatorando qualquer projeto para o padrão MVC, independente da tecnologia.
 
+## Commit-base do código legado
+
+O commit `6d1ce6248c3e956801010a89d8bdaab48029bf30` registra o código legado dos três projetos deste repositório: `code-smells-project/`, `ecommerce-api-legacy/` e `task-manager-api/`.
+
+Use esse mesmo hash no campo `commit-base` dos três relatórios de auditoria. Os arquivos e as linhas de cada finding devem corresponder ao código desse commit, anterior à refatoração.
+
+## Baseline funcional do legado
+
+A baseline foi executada sobre cópias temporárias do commit-base, com servidores HTTP reais em `127.0.0.1`, portas temporárias e bancos descartáveis. Os fontes das aplicações e os dois bancos locais existentes foram preservados.
+
+| Projeto | Relatório | Operações exercitadas | Cenários | Cenários com desvios |
+|---|---|---|---|---|
+| Python/Flask — E-commerce | [Baseline do projeto 1](reports/baseline-project-1.md) | 19/19 | 39 | 12 |
+| Node.js/Express — LMS | [Baseline do projeto 2](reports/baseline-project-2.md) | 3/3 | 14 | 6 |
+| Python/Flask — Task Manager | [Baseline do projeto 3](reports/baseline-project-3.md) | 22/22 | 57 | 12 |
+| **Total** | | **44/44** | **110** | **30** |
+
+Os desvios incluem entradas inválidas que retornam 500, exposição de senhas/configuração, falhas de autorização e integridade referencial. No LMS, um campo `card` numérico encerrou o processo com código 1, sem resposta HTTP. As expectativas dos cenários indicam o comportamento correto desejado; os defeitos observados devem ser corrigidos na refatoração.
+
+Cada relatório referencia o JSON de requisições, respostas sanitizadas, verificações e efeitos no banco, além do log de boot e erros. Esses registros estão em [reports/evidence/](reports/evidence/). Eles documentam a baseline anterior à refatoração; os relatórios da Fase 2 da skill ainda serão gerados.
+
+Para reproduzir, com os ambientes locais preparados conforme o [plano de execução](PLANO_EXECUCAO.md#4-execute-os-legados-e-registre-uma-baseline):
+
+```bash
+python3 scripts/baseline/run.py
+# Executar somente um projeto:
+python3 scripts/baseline/run.py --project 2
+```
+
+O executor usa os fontes do commit-base registrado, reutiliza `.venv` de cada Flask e `node_modules` do LMS e recria os dados apenas nas cópias temporárias. A cobertura indica combinações de método e rota exercitadas, sem representar cobertura completa de linhas ou de entradas possíveis.
+
 ## Objetivo
 
 Você deve entregar uma Skill capaz de:

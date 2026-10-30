@@ -1,0 +1,67 @@
+stdout: ==================================================
+stdout: SERVIDOR INICIADO
+stdout: Rodando em http://localhost:5000
+stdout: ==================================================
+stdout:  * Serving Flask app 'app'
+stdout:  * Debug mode: off
+stderr: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+stderr:  * Running on http://127.0.0.1:46159
+stderr: [33mPress CTRL+C to quit[0m
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET / HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET /health HTTP/1.1" 200 -
+stdout: Listando 10 produtos
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET /produtos HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET /produtos/2 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[33mGET /produtos/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET /produtos/busca?q=Mouse&categoria=informatica&preco_min=80&preco_max=100 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[35m[1mGET /produtos/busca?preco_min=abc HTTP/1.1[0m" 500 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET /usuarios HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET /usuarios/1 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[33mGET /usuarios/999999 HTTP/1.1[0m" 404 -
+stdout: Usuário criado: baseline.loja@example.test
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[35m[1mPOST /usuarios HTTP/1.1[0m" 201 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[31m[1mPOST /usuarios HTTP/1.1[0m" 400 -
+stdout: Login bem-sucedido: baseline.loja@example.test
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "POST /login HTTP/1.1" 200 -
+stdout: Login falhou: baseline.loja@example.test
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[31m[1mPOST /login HTTP/1.1[0m" 400 -
+stdout: Produto criado com ID: 11
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[35m[1mPOST /produtos HTTP/1.1[0m" 201 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "PUT /produtos/11 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[31m[1mPOST /produtos HTTP/1.1[0m" 400 -
+stdout: ERRO ao criar produto: '<' not supported between instances of 'str' and 'int'
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[35m[1mPOST /produtos HTTP/1.1[0m" 500 -
+stdout: ERRO ao criar produto: near "água": syntax error
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[35m[1mPOST /produtos HTTP/1.1[0m" 500 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[33mPUT /produtos/999999 HTTP/1.1[0m" 404 -
+stdout: ENVIANDO EMAIL: Pedido 1 criado para usuario 4
+stdout: ENVIANDO SMS: Seu pedido foi recebido!
+stdout: ENVIANDO PUSH: Novo pedido recebido pelo sistema
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[35m[1mPOST /pedidos HTTP/1.1[0m" 201 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET /pedidos HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET /pedidos/usuario/4 HTTP/1.1" 200 -
+stdout: NOTIFICAÇÃO: Pedido 1 foi aprovado! Preparar envio.
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "PUT /pedidos/1/status HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[31m[1mPUT /pedidos/1/status HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "PUT /pedidos/999999/status HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "GET /relatorios/vendas HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[31m[1mPOST /pedidos HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[31m[1mPOST /pedidos HTTP/1.1[0m" 400 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[31m[1mPOST /pedidos HTTP/1.1[0m" 400 -
+stdout: ENVIANDO EMAIL: Pedido 2 criado para usuario 4
+stdout: ENVIANDO SMS: Seu pedido foi recebido!
+stdout: ENVIANDO PUSH: Novo pedido recebido pelo sistema
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[35m[1mPOST /pedidos HTTP/1.1[0m" 201 -
+stdout: ENVIANDO EMAIL: Pedido 3 criado para usuario 999999
+stdout: ENVIANDO SMS: Seu pedido foi recebido!
+stdout: ENVIANDO PUSH: Novo pedido recebido pelo sistema
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[35m[1mPOST /pedidos HTTP/1.1[0m" 201 -
+stdout: Produto 11 deletado
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "DELETE /produtos/11 HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[33mDELETE /produtos/11 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[33mDELETE /produtos/999999 HTTP/1.1[0m" 404 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "POST /admin/query HTTP/1.1" 200 -
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "[31m[1mPOST /admin/query HTTP/1.1[0m" 400 -
+stdout: !!! BANCO DE DADOS RESETADO !!!
+stderr: 127.0.0.1 - - [29/Oct/2026 23:09:49] "POST /admin/reset-db HTTP/1.1" 200 -

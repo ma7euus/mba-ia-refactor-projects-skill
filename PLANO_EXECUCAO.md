@@ -2,7 +2,7 @@
 
 Este roteiro combina os requisitos do [README.md](README.md), as 18 aulas do arquivo `fullcycle_IA_Labs.json` e a leitura do código dos três projetos. O objetivo da entrega é demonstrar que **a mesma skill analisa, audita e refatora os três projetos para MVC, com aprovação humana e validação funcional**.
 
-O documento é um plano de trabalho. As observações sobre o código vieram de análise estática; instalações, execuções, refatorações e testes ainda deverão ser realizados. As referências de linhas abaixo correspondem ao código legado do commit `6d1ce62`.
+O documento é um plano de trabalho. A análise estática orientou os achados iniciais, e a baseline funcional já foi executada e registrada na etapa 4. As refatorações e suas validações posteriores ainda deverão ser realizadas. As referências de linhas abaixo correspondem ao código legado do commit-base registrado na etapa 3, comum aos três projetos deste repositório.
 
 ## 1. Entenda o que precisa ser entregue
 
@@ -69,10 +69,16 @@ codex --version
 ```
 
 1. Garanta que a entrega ficará em um fork público seu.
-2. Registre o commit que contém o código legado para relacionar os findings ao estado auditado.
+2. Use o commit-base registrado abaixo para relacionar os findings ao estado auditado.
 3. Crie uma branch de trabalho, por exemplo `feat/refactor-arch`.
 4. Preserve alterações locais já existentes e evite incluir arquivos da IDE na entrega.
 5. Crie `reports/` e, se desejar, `reports/evidence/` para guardar as evidências de execução.
+
+**Registro do código legado:**
+
+- **Commit-base:** `6d1ce6248c3e956801010a89d8bdaab48029bf30`.
+- **Escopo:** `code-smells-project/`, `ecommerce-api-legacy/` e `task-manager-api/`, todos no mesmo repositório.
+- **Uso nos relatórios:** registrar esse mesmo hash no campo `commit-base` das três auditorias; os arquivos e as linhas dos findings devem apontar para o código desse commit.
 
 **Resultado esperado:** ferramenta configurada, repositório preparado e referência recuperável do código anterior à refatoração.
 
@@ -119,11 +125,19 @@ python3 -m venv .venv
 
 O `seed.py` do Task Manager **apaga os registros existentes antes de popular o banco**. Use-o em banco de desenvolvimento descartável. Confirme o arquivo SQLite efetivamente utilizado: com a URI atual, ele normalmente fica em `instance/tasks.db`.
 
-Monte uma tabela de baseline para cada API:
+As tabelas de baseline estão preenchidas, com uma linha por cenário, nos relatórios:
+
+- [Projeto 1 — E-commerce Flask](reports/baseline-project-1.md#baseline-por-método-e-rota).
+- [Projeto 2 — LMS Express](reports/baseline-project-2.md#baseline-por-método-e-rota).
+- [Projeto 3 — Task Manager Flask](reports/baseline-project-3.md#baseline-por-método-e-rota).
+
+Abaixo, três registros reais da execução. Os IDs P1, P2 e P3 identificam o projeto correspondente. As tabelas completas incluem todos os 110 cenários, inclusive falhas e entradas inválidas.
 
 | Método e rota | Entrada | Status observado | Campos relevantes da resposta | Efeito no banco | Comportamento correto a preservar ou falha a corrigir |
 |---|---|---|---|---|---|
-| Preencher na execução | Payload ou query string | Preencher | Preencher | Preencher | Preencher |
+| `POST /produtos`<br>**P1-16** — Criação de produto de teste | JSON: `{"nome":"Produto Baseline","descricao":"Registro descartável","preco":25.0,"estoque":12,"categoria":"geral"}` | 201 | `dados`: `{"id":11}`; `mensagem="Produto criado"`; `sucesso=true` | Contagens: `produtos`: 10 → 11. Check de persistência «Produto persistido uma vez»: observado `1`. Check de persistência «Preço persistido»: observado `25.0`. Check de persistência «Estoque persistido»: observado `12`. | Preservar HTTP 201 e o comportamento verificado de «Criação de produto de teste». |
+| `POST /api/checkout`<br>**P2-02** — Checkout aprovado de usuário novo | JSON: `{"usr":"Baseline Paid Student","eml":"baseline-paid@example.test","c_id":1,"card":"[MASCARADO]","pwd":"[MASCARADO]"}` | 200 | `msg="Sucesso"`; `enrollment_id=2` | Contagens: `audit_logs`: 0 → 1; `enrollments`: 1 → 2; `payments`: 1 → 2; `users`: 1 → 2. Check de persistência «Pagamento persistido»: observado `[{"amount":997,"status":"PAID"}]`. | Preservar: Cria usuário, matrícula, pagamento PAID e registro de auditoria. |
+| `PUT /tasks/11`<br>**P3-31** — Concluir task sintética | JSON: `{"status":"done","priority":1,"title":"Baseline completed task"}` | 200 | `category_id=5`; `created_at="2026-10-30 02:09:50.655383"`; `description="Task de regressão descartável"`; `due_date="2000-01-01 00:00:00"`; `id=11`; `priority=1`; `status="done"`; `tags`: lista com 2 item(ns); `title="Baseline completed task"`; `updated_at="2026-10-30 02:09:50.662676"`; `user_id=4` | Contagens das tabelas sem variação. Check de persistência «Status e prioridade persistidos»: observado `[{"status":"done","priority":1}]`. | Preservar HTTP 200 e o comportamento verificado de «Concluir task sintética». |
 
 Inventarie **todas as combinações de método e rota**, incluindo caminhos administrativos e casos de erro. Use `app.py`, os arquivos de rotas e `api.http` como fontes. As primeiras verificações podem ser:
 
@@ -143,9 +157,25 @@ curl -sS http://localhost:5000/categories
 
 Essas chamadas são apenas um início; não cobrem todos os endpoints. No projeto 1, a resposta legada de `/health` contém configuração sensível, por isso o exemplo registra somente o status. Mascare segredos, senhas, hashes e dados de cartão ao salvar logs.
 
-Os projetos não possuem suíte de testes pronta; o Node também não possui `npm test`. Prepare verificações de contrato e de fluxo antes da refatoração, por requisições HTTP ou testes de integração. Registre falhas preexistentes, sem tratá-las como comportamento que precisa ser perpetuado.
+Os projetos legados do commit-base não possuem suíte de testes pronta; o Node também não possui `npm test`. Prepare verificações de contrato e de fluxo antes da refatoração, por requisições HTTP ou testes de integração. Registre falhas preexistentes, sem tratá-las como comportamento que precisa ser perpetuado.
 
 **Resultado esperado:** três baselines reproduzíveis, com ambiente, comandos, entradas, respostas e efeitos observados.
+
+**Baseline registrada:**
+
+| Projeto | Relatório | Operações exercitadas | Cenários | Cenários com desvios |
+|---|---|---|---|---|
+| E-commerce Flask | [baseline-project-1.md](reports/baseline-project-1.md) | 19/19 | 39 | 12 |
+| LMS Express | [baseline-project-2.md](reports/baseline-project-2.md) | 3/3 | 14 | 6 |
+| Task Manager Flask | [baseline-project-3.md](reports/baseline-project-3.md) | 22/22 | 57 | 12 |
+
+Foram executados 110 cenários cobrindo as 44 operações. Os 30 cenários com desvios documentam defeitos do legado; não representam 30 problemas únicos. JSONs e logs sanitizados estão em `reports/evidence/`, com versões reais, entradas, respostas e efeitos no banco.
+
+O executor reproduz os testes sobre cópias do commit-base em diretórios temporários. Reutiliza as dependências locais e preserva os bancos existentes. Os servidores usam loopback e portas efêmeras; debug/reloader do Flask são desativados, e o LMS recebe um observador de SQLite limitado a SELECT, sem editar os fontes. Para repetir a baseline, execute na raiz:
+
+```bash
+python3 scripts/baseline/run.py
+```
 
 ## 5. Faça e documente a análise manual
 

@@ -1,0 +1,982 @@
+{
+  "project": "ecommerce-api-legacy",
+  "commit_base": "6d1ce6248c3e956801010a89d8bdaab48029bf30",
+  "started_at_utc": "2026-10-30T02:09:49.741462+00:00",
+  "finished_at_utc": "2026-10-30T02:09:49.939057+00:00",
+  "versions": {
+    "node": "v24.19.0",
+    "express": "4.22.1",
+    "sqlite3": "5.1.7"
+  },
+  "isolation": "git archive em /tmp; banco descartável; dependências locais reutilizadas",
+  "runtime_adjustments": "HTTP real em loopback e porta efêmera; Flask sem debug/reloader; Node com observador SQLite somente SELECT",
+  "boots": [
+    {
+      "entry_point": "node src/app.js via require; porta isolada; observador SQLite somente SELECT",
+      "host": "127.0.0.1",
+      "port": 37895,
+      "ready": true
+    }
+  ],
+  "source_unchanged": true,
+  "process_exit_before_cleanup": 1,
+  "source_sha256": {
+    "package.json": "226abf59e5ea41e6ceb4869f21bfc586ffeabfb28bbaaacb9e971cd6f73a74e9",
+    "package-lock.json": "0b9a4139ca512c68c512824e0c39f6ff94a28524246c83bd95a4b6116661e493",
+    "src/utils.js": "58eebf3e99911451cd54b3a6f42f1b3f123ef0d4e8f6dd60c55444ed2b45333d",
+    "src/app.js": "d2096cb2ff25af262c63053fc861605979ae270c8949e9ebabf7de18e76ffc4c",
+    "src/AppManager.js": "fe40e39220536fe666a9af818c259ab5844ee77fac556211770f4997650b4104"
+  },
+  "coverage": {
+    "inventory": [
+      [
+        "DELETE",
+        "/api/users/:id"
+      ],
+      [
+        "GET",
+        "/api/admin/financial-report"
+      ],
+      [
+        "POST",
+        "/api/checkout"
+      ]
+    ],
+    "covered": [
+      [
+        "DELETE",
+        "/api/users/:id"
+      ],
+      [
+        "GET",
+        "/api/admin/financial-report"
+      ],
+      [
+        "POST",
+        "/api/checkout"
+      ]
+    ],
+    "uncovered": [],
+    "declared_inventory_matches_runtime": true
+  },
+  "case_count": 14,
+  "deviation_count": 6,
+  "findings": [
+    "O relatório financeiro é acessível sem autenticação/autorização.",
+    "O checkout aceita cadastro sem senha e email malformado.",
+    "A exclusão deixa matrículas e pagamentos ligados a usuário removido; o relatório usa Unknown.",
+    "A exclusão de usuário inexistente responde sucesso.",
+    "O checkout recusado cria o usuário antes de negar o pagamento; esse efeito deve ser considerado na decisão de atomicidade.",
+    "Card numérico provoca TypeError em startsWith e pode encerrar o processo em vez de retornar 400.",
+    "O log do checkout contém cartão sintético e chave de configuração; a evidência persistida deve mascarar ambos."
+  ],
+  "limitations": [
+    "Pagamento é simulado localmente pelo prefixo do campo card; não houve gateway, cartão real, SMTP nem serviço externo. SELECTs de observação usam o mesmo SQLite em memória do processo, sem alterar os dados."
+  ],
+  "execution_error": null,
+  "cases": [
+    {
+      "id": "P2-01",
+      "name": "Relatório financeiro com os dados iniciais",
+      "method": "GET",
+      "path": "/api/admin/financial-report",
+      "route": "/api/admin/financial-report",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "Dois cursos; receita inicial total de 997 e uma matrícula paga.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Receita inicial",
+          "actual": 997,
+          "expected": 997,
+          "ok": true
+        },
+        {
+          "name": "Estado inicial das tabelas",
+          "actual": {
+            "users": 1,
+            "courses": 2,
+            "enrollments": 1,
+            "payments": 1,
+            "audit_logs": 0
+          },
+          "expected": {
+            "users": 1,
+            "courses": 2,
+            "enrollments": 1,
+            "payments": 1,
+            "audit_logs": 0
+          },
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 1,
+        "courses": 2,
+        "enrollments": 1,
+        "payments": 1,
+        "audit_logs": 0
+      },
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "body": [
+        {
+          "course": "Docker",
+          "revenue": 0,
+          "students": []
+        },
+        {
+          "course": "Clean Architecture",
+          "revenue": 997,
+          "students": [
+            {
+              "student": "Leonan",
+              "paid": 997
+            }
+          ]
+        }
+      ],
+      "duration_ms": 5.46,
+      "db_after": {
+        "users": 1,
+        "courses": 2,
+        "enrollments": 1,
+        "payments": 1,
+        "audit_logs": 0
+      }
+    },
+    {
+      "id": "P2-02",
+      "name": "Checkout aprovado de usuário novo",
+      "method": "POST",
+      "path": "/api/checkout",
+      "route": "/api/checkout",
+      "request": {
+        "usr": "Baseline Paid Student",
+        "eml": "baseline-paid@example.test",
+        "c_id": 1,
+        "card": "[MASCARADO]",
+        "pwd": "[MASCARADO]"
+      },
+      "expected_status": 200,
+      "expectation": "Cria usuário, matrícula, pagamento PAID e registro de auditoria.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Registros adicionados em users",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Registros adicionados em enrollments",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Registros adicionados em payments",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Registros adicionados em audit_logs",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Pagamento persistido",
+          "actual": [
+            {
+              "amount": 997,
+              "status": "PAID"
+            }
+          ],
+          "expected": [
+            {
+              "amount": 997.0,
+              "status": "PAID"
+            }
+          ],
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 1,
+        "courses": 2,
+        "enrollments": 1,
+        "payments": 1,
+        "audit_logs": 0
+      },
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "body": {
+        "msg": "Sucesso",
+        "enrollment_id": 2
+      },
+      "duration_ms": 11.09,
+      "db_after": {
+        "users": 2,
+        "courses": 2,
+        "enrollments": 2,
+        "payments": 2,
+        "audit_logs": 1
+      }
+    },
+    {
+      "id": "P2-03",
+      "name": "Relatório após checkout aprovado",
+      "method": "GET",
+      "path": "/api/admin/financial-report",
+      "route": "/api/admin/financial-report",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "Receita total de 1994 e inclusão do aluno sintético.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Receita após compra",
+          "actual": 1994,
+          "expected": 1994,
+          "ok": true
+        },
+        {
+          "name": "Aluno incluído no relatório",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 2,
+        "courses": 2,
+        "enrollments": 2,
+        "payments": 2,
+        "audit_logs": 1
+      },
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "body": [
+        {
+          "course": "Docker",
+          "revenue": 0,
+          "students": []
+        },
+        {
+          "course": "Clean Architecture",
+          "revenue": 1994,
+          "students": [
+            {
+              "student": "Leonan",
+              "paid": 997
+            },
+            {
+              "student": "Baseline Paid Student",
+              "paid": 997
+            }
+          ]
+        }
+      ],
+      "duration_ms": 1.85,
+      "db_after": {
+        "users": 2,
+        "courses": 2,
+        "enrollments": 2,
+        "payments": 2,
+        "audit_logs": 1
+      }
+    },
+    {
+      "id": "P2-04",
+      "name": "Checkout de usuário já cadastrado em outro curso",
+      "method": "POST",
+      "path": "/api/checkout",
+      "route": "/api/checkout",
+      "request": {
+        "usr": "Baseline Paid Student",
+        "eml": "baseline-paid@example.test",
+        "c_id": 2,
+        "card": "[MASCARADO]",
+        "pwd": "[MASCARADO]"
+      },
+      "expected_status": 200,
+      "expectation": "Reutiliza o usuário e adiciona matrícula e pagamento de 497.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Usuário não duplicado",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        },
+        {
+          "name": "Registros adicionados em enrollments",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Registros adicionados em payments",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Registros adicionados em audit_logs",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 2,
+        "courses": 2,
+        "enrollments": 2,
+        "payments": 2,
+        "audit_logs": 1
+      },
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "body": {
+        "msg": "Sucesso",
+        "enrollment_id": 3
+      },
+      "duration_ms": 2.01,
+      "db_after": {
+        "users": 2,
+        "courses": 2,
+        "enrollments": 3,
+        "payments": 3,
+        "audit_logs": 2
+      }
+    },
+    {
+      "id": "P2-05",
+      "name": "Checkout com pagamento recusado",
+      "method": "POST",
+      "path": "/api/checkout",
+      "route": "/api/checkout",
+      "request": {
+        "usr": "Baseline Denied Student",
+        "eml": "baseline-denied@example.test",
+        "c_id": 1,
+        "card": "[MASCARADO]",
+        "pwd": "[MASCARADO]"
+      },
+      "expected_status": 400,
+      "expectation": "Informa recusa e não cria matrícula nem pagamento.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Sem gravação em enrollments",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        },
+        {
+          "name": "Sem gravação em payments",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        },
+        {
+          "name": "Sem gravação em audit_logs",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        }
+      ],
+      "notes": [
+        "Efeito legado observado: variação de usuários = 1; criação ocorre antes da recusa."
+      ],
+      "db_before": {
+        "users": 2,
+        "courses": 2,
+        "enrollments": 3,
+        "payments": 3,
+        "audit_logs": 2
+      },
+      "status": 400,
+      "content_type": "text/html; charset=utf-8",
+      "body": "Pagamento recusado",
+      "duration_ms": 6.24,
+      "db_after": {
+        "users": 3,
+        "courses": 2,
+        "enrollments": 3,
+        "payments": 3,
+        "audit_logs": 2
+      }
+    },
+    {
+      "id": "P2-06",
+      "name": "Checkout sem campos obrigatórios",
+      "method": "POST",
+      "path": "/api/checkout",
+      "route": "/api/checkout",
+      "request": {
+        "usr": "Baseline Missing Fields"
+      },
+      "expected_status": 400,
+      "expectation": "Rejeita entrada incompleta sem persistir registros.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Estado do banco preservado",
+          "actual": {
+            "users": 3,
+            "courses": 2,
+            "enrollments": 3,
+            "payments": 3,
+            "audit_logs": 2
+          },
+          "expected": {
+            "users": 3,
+            "courses": 2,
+            "enrollments": 3,
+            "payments": 3,
+            "audit_logs": 2
+          },
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "courses": 2,
+        "enrollments": 3,
+        "payments": 3,
+        "audit_logs": 2
+      },
+      "status": 400,
+      "content_type": "text/html; charset=utf-8",
+      "body": "Bad Request",
+      "duration_ms": 1.11,
+      "db_after": {
+        "users": 3,
+        "courses": 2,
+        "enrollments": 3,
+        "payments": 3,
+        "audit_logs": 2
+      }
+    },
+    {
+      "id": "P2-07",
+      "name": "Checkout com curso inexistente",
+      "method": "POST",
+      "path": "/api/checkout",
+      "route": "/api/checkout",
+      "request": {
+        "usr": "Baseline Unknown Course",
+        "eml": "baseline-unknown@example.test",
+        "c_id": 999999,
+        "card": "[MASCARADO]",
+        "pwd": "[MASCARADO]"
+      },
+      "expected_status": 404,
+      "expectation": "Curso inexistente deve retornar 404 sem gravações.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Estado do banco preservado",
+          "actual": {
+            "users": 3,
+            "courses": 2,
+            "enrollments": 3,
+            "payments": 3,
+            "audit_logs": 2
+          },
+          "expected": {
+            "users": 3,
+            "courses": 2,
+            "enrollments": 3,
+            "payments": 3,
+            "audit_logs": 2
+          },
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "courses": 2,
+        "enrollments": 3,
+        "payments": 3,
+        "audit_logs": 2
+      },
+      "status": 404,
+      "content_type": "text/html; charset=utf-8",
+      "body": "Curso não encontrado",
+      "duration_ms": 1.16,
+      "db_after": {
+        "users": 3,
+        "courses": 2,
+        "enrollments": 3,
+        "payments": 3,
+        "audit_logs": 2
+      }
+    },
+    {
+      "id": "P2-08",
+      "name": "Checkout de usuário novo sem senha",
+      "method": "POST",
+      "path": "/api/checkout",
+      "route": "/api/checkout",
+      "request": {
+        "usr": "Baseline No Password",
+        "eml": "baseline-no-password@example.test",
+        "c_id": 2,
+        "card": "[MASCARADO]"
+      },
+      "expected_status": 400,
+      "expectation": "Cadastro sem senha deve ser rejeitado; o legado usa uma senha padrão.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [
+        "Variações observadas: usuários=1, matrículas=1, pagamentos=1."
+      ],
+      "db_before": {
+        "users": 3,
+        "courses": 2,
+        "enrollments": 3,
+        "payments": 3,
+        "audit_logs": 2
+      },
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "body": {
+        "msg": "Sucesso",
+        "enrollment_id": 4
+      },
+      "duration_ms": 2.74,
+      "db_after": {
+        "users": 4,
+        "courses": 2,
+        "enrollments": 4,
+        "payments": 4,
+        "audit_logs": 3
+      }
+    },
+    {
+      "id": "P2-09",
+      "name": "Checkout com email malformado",
+      "method": "POST",
+      "path": "/api/checkout",
+      "route": "/api/checkout",
+      "request": {
+        "usr": "Baseline Invalid Email",
+        "eml": "invalid-email-baseline",
+        "c_id": 2,
+        "card": "[MASCARADO]",
+        "pwd": "[MASCARADO]"
+      },
+      "expected_status": 400,
+      "expectation": "Email malformado deve ser rejeitado antes do cadastro.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Nenhum usuário com email inválido persistido",
+          "actual": [
+            {
+              "total": 1
+            }
+          ],
+          "expected": [
+            {
+              "total": 0
+            }
+          ],
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "courses": 2,
+        "enrollments": 4,
+        "payments": 4,
+        "audit_logs": 3
+      },
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "body": {
+        "msg": "Sucesso",
+        "enrollment_id": 5
+      },
+      "duration_ms": 2.63,
+      "db_after": {
+        "users": 5,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      }
+    },
+    {
+      "id": "P2-10",
+      "name": "Relatório administrativo sem autenticação",
+      "method": "GET",
+      "path": "/api/admin/financial-report",
+      "route": "/api/admin/financial-report",
+      "request": null,
+      "expected_status": [
+        401,
+        403
+      ],
+      "expectation": "Dados administrativos devem exigir autenticação/autorização.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [
+        "A resposta completa foi obtida sem cabeçalho Authorization ou sessão."
+      ],
+      "db_before": {
+        "users": 5,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      },
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "body": [
+        {
+          "course": "Clean Architecture",
+          "revenue": 1994,
+          "students": [
+            {
+              "student": "Leonan",
+              "paid": 997
+            },
+            {
+              "student": "Baseline Paid Student",
+              "paid": 997
+            }
+          ]
+        },
+        {
+          "course": "Docker",
+          "revenue": 1491,
+          "students": [
+            {
+              "student": "Baseline Invalid Email",
+              "paid": 497
+            },
+            {
+              "student": "Baseline Paid Student",
+              "paid": 497
+            },
+            {
+              "student": "Baseline No Password",
+              "paid": 497
+            }
+          ]
+        }
+      ],
+      "duration_ms": 1.14,
+      "db_after": {
+        "users": 5,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      }
+    },
+    {
+      "id": "P2-11",
+      "name": "Exclusão de usuário sintético com matrículas",
+      "method": "DELETE",
+      "path": "/api/users/2",
+      "route": "/api/users/:id",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "Excluir usuário deve preservar integridade referencial ou rejeitar a operação.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Usuário removido",
+          "actual": [
+            {
+              "total": 0
+            }
+          ],
+          "expected": [
+            {
+              "total": 0
+            }
+          ],
+          "ok": true
+        },
+        {
+          "name": "Nenhuma matrícula órfã",
+          "actual": [
+            {
+              "total": 2
+            }
+          ],
+          "expected": [
+            {
+              "total": 0
+            }
+          ],
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 5,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      },
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "body": "Usuário deletado, mas as matrículas e pagamentos ficaram sujos no banco.",
+      "duration_ms": 0.8,
+      "db_after": {
+        "users": 4,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      }
+    },
+    {
+      "id": "P2-12",
+      "name": "Relatório após exclusão de usuário matriculado",
+      "method": "GET",
+      "path": "/api/admin/financial-report",
+      "route": "/api/admin/financial-report",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "Relatório permanece acessível; observar o efeito da exclusão nas matrículas e receita.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [
+        "Receita antes/depois da exclusão: 3485 / 3485; alunos apresentados como Unknown: 2."
+      ],
+      "db_before": {
+        "users": 4,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      },
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "body": [
+        {
+          "course": "Clean Architecture",
+          "revenue": 1994,
+          "students": [
+            {
+              "student": "Leonan",
+              "paid": 997
+            },
+            {
+              "student": "Unknown",
+              "paid": 997
+            }
+          ]
+        },
+        {
+          "course": "Docker",
+          "revenue": 1491,
+          "students": [
+            {
+              "student": "Unknown",
+              "paid": 497
+            },
+            {
+              "student": "Baseline No Password",
+              "paid": 497
+            },
+            {
+              "student": "Baseline Invalid Email",
+              "paid": 497
+            }
+          ]
+        }
+      ],
+      "duration_ms": 1.47,
+      "db_after": {
+        "users": 4,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      }
+    },
+    {
+      "id": "P2-13",
+      "name": "Exclusão de usuário inexistente",
+      "method": "DELETE",
+      "path": "/api/users/999999",
+      "route": "/api/users/:id",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "Um usuário inexistente deve ser identificado sem alegar exclusão bem-sucedida.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Estado do banco preservado",
+          "actual": {
+            "users": 4,
+            "courses": 2,
+            "enrollments": 5,
+            "payments": 5,
+            "audit_logs": 4
+          },
+          "expected": {
+            "users": 4,
+            "courses": 2,
+            "enrollments": 5,
+            "payments": 5,
+            "audit_logs": 4
+          },
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      },
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "body": "Usuário deletado, mas as matrículas e pagamentos ficaram sujos no banco.",
+      "duration_ms": 1.03,
+      "db_after": {
+        "users": 4,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      }
+    },
+    {
+      "id": "P2-14",
+      "name": "Checkout com card numérico",
+      "method": "POST",
+      "path": "/api/checkout",
+      "route": "/api/checkout",
+      "request": {
+        "usr": "Baseline Numeric Card",
+        "eml": "baseline-numeric@example.test",
+        "c_id": 1,
+        "card": "[MASCARADO]",
+        "pwd": "[MASCARADO]"
+      },
+      "expected_status": 400,
+      "expectation": "Tipo inválido deve retornar 400 sem encerrar o processo.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Sem TypeError no processo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [
+        "Cenário executado por último porque a exceção assíncrona pode encerrar o servidor legado."
+      ],
+      "db_before": {
+        "users": 4,
+        "courses": 2,
+        "enrollments": 5,
+        "payments": 5,
+        "audit_logs": 4
+      },
+      "status": null,
+      "body": "Falha de transporte: RemoteDisconnected",
+      "duration_ms": 8.54,
+      "db_after": {
+        "indisponivel": true
+      }
+    }
+  ]
+}

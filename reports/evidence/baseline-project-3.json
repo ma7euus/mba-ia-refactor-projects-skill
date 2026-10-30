@@ -1,0 +1,3162 @@
+{
+  "project": "task-manager-api",
+  "commit_base": "6d1ce6248c3e956801010a89d8bdaab48029bf30",
+  "started_at_utc": "2026-10-30T02:09:49.945977+00:00",
+  "finished_at_utc": "2026-10-30T02:09:50.756056+00:00",
+  "versions": {
+    "python": "3.14.4",
+    "flask": "3.0.0",
+    "flask-cors": "4.0.0",
+    "flask-sqlalchemy": "3.1.1",
+    "sqlalchemy": "2.1.6"
+  },
+  "isolation": "git archive em /tmp; banco descartável; dependências locais reutilizadas",
+  "runtime_adjustments": "HTTP real em loopback e porta efêmera; Flask sem debug/reloader; Node com observador SQLite somente SELECT",
+  "boots": [
+    {
+      "entry_point": "python app.py via runpy; porta isolada; debug/reloader desativados",
+      "host": "127.0.0.1",
+      "port": 45487,
+      "ready": true
+    }
+  ],
+  "source_unchanged": true,
+  "process_exit_before_cleanup": null,
+  "source_sha256": {
+    "seed.py": "828707cd10f7ce3de634ae558d82d1ac5492f32826b8c0ec054640f7660cee48",
+    "requirements.txt": "1ce759d61b773d9972743752b216b26fb39a74a82cf4cd58904272674061b72f",
+    "database.py": "80ed315e56743af6c322cbea92e65105b3873dff3a98c99de3ce94ae07becac5",
+    "app.py": "5589fe307799449d446d081d4de702b7cf37eafa1b2ec7aa7463057f66531558",
+    "utils/helpers.py": "c1d07041b969c9bbf28d15a3f299127134184aceae1d35c86bbf7b9ef8cdb5f4",
+    "utils/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "services/notification_service.py": "ee009841e2c547a41b6646a764e92b32db834970130540162991827bf7554bff",
+    "services/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "routes/user_routes.py": "3835f0e9be7f657bf2f8b82603ab428a048517aed0c7c8db6a0f9ae79b8fc350",
+    "routes/task_routes.py": "1b3a327029c9b6fe5321ad817d79d2bc4cbf851d2aa0b24b3d27d2cdbbfc5425",
+    "routes/report_routes.py": "6b930f7c3986ad595ea6df368bd32742f7326b91b7ef3f2040d971cdf2c8b7d5",
+    "routes/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "models/user.py": "bb5e52494c02d7de4c467f51811778677e3b2a0cc864b93298f18edfb1531c97",
+    "models/task.py": "c4aeb49b843740023830ebb577fc5853936651a32076fa94fde686c997b25fda",
+    "models/category.py": "3e60ddfb42637b54df550f07c1640e8e0370c34fe3a012dfd3dadcaed0cfeec5",
+    "models/__init__.py": "706f2d67d6d11df57f0a3b12e0bf88827e9e56a53171a190a19c572186be41d0"
+  },
+  "coverage": {
+    "inventory": [
+      [
+        "DELETE",
+        "/categories/<int:cat_id>"
+      ],
+      [
+        "DELETE",
+        "/tasks/<int:task_id>"
+      ],
+      [
+        "DELETE",
+        "/users/<int:user_id>"
+      ],
+      [
+        "GET",
+        "/"
+      ],
+      [
+        "GET",
+        "/categories"
+      ],
+      [
+        "GET",
+        "/health"
+      ],
+      [
+        "GET",
+        "/reports/summary"
+      ],
+      [
+        "GET",
+        "/reports/user/<int:user_id>"
+      ],
+      [
+        "GET",
+        "/tasks"
+      ],
+      [
+        "GET",
+        "/tasks/<int:task_id>"
+      ],
+      [
+        "GET",
+        "/tasks/search"
+      ],
+      [
+        "GET",
+        "/tasks/stats"
+      ],
+      [
+        "GET",
+        "/users"
+      ],
+      [
+        "GET",
+        "/users/<int:user_id>"
+      ],
+      [
+        "GET",
+        "/users/<int:user_id>/tasks"
+      ],
+      [
+        "POST",
+        "/categories"
+      ],
+      [
+        "POST",
+        "/login"
+      ],
+      [
+        "POST",
+        "/tasks"
+      ],
+      [
+        "POST",
+        "/users"
+      ],
+      [
+        "PUT",
+        "/categories/<int:cat_id>"
+      ],
+      [
+        "PUT",
+        "/tasks/<int:task_id>"
+      ],
+      [
+        "PUT",
+        "/users/<int:user_id>"
+      ]
+    ],
+    "covered": [
+      [
+        "DELETE",
+        "/categories/<int:cat_id>"
+      ],
+      [
+        "DELETE",
+        "/tasks/<int:task_id>"
+      ],
+      [
+        "DELETE",
+        "/users/<int:user_id>"
+      ],
+      [
+        "GET",
+        "/"
+      ],
+      [
+        "GET",
+        "/categories"
+      ],
+      [
+        "GET",
+        "/health"
+      ],
+      [
+        "GET",
+        "/reports/summary"
+      ],
+      [
+        "GET",
+        "/reports/user/<int:user_id>"
+      ],
+      [
+        "GET",
+        "/tasks"
+      ],
+      [
+        "GET",
+        "/tasks/<int:task_id>"
+      ],
+      [
+        "GET",
+        "/tasks/search"
+      ],
+      [
+        "GET",
+        "/tasks/stats"
+      ],
+      [
+        "GET",
+        "/users"
+      ],
+      [
+        "GET",
+        "/users/<int:user_id>"
+      ],
+      [
+        "GET",
+        "/users/<int:user_id>/tasks"
+      ],
+      [
+        "POST",
+        "/categories"
+      ],
+      [
+        "POST",
+        "/login"
+      ],
+      [
+        "POST",
+        "/tasks"
+      ],
+      [
+        "POST",
+        "/users"
+      ],
+      [
+        "PUT",
+        "/categories/<int:cat_id>"
+      ],
+      [
+        "PUT",
+        "/tasks/<int:task_id>"
+      ],
+      [
+        "PUT",
+        "/users/<int:user_id>"
+      ]
+    ],
+    "uncovered": [],
+    "declared_inventory_matches_runtime": true
+  },
+  "case_count": 57,
+  "deviation_count": 12,
+  "findings": [
+    "Os checks de segurança distinguem respostas funcionais de comportamentos que precisam mudar: exposição de hash, MD5, token previsível e autorização. Os resultados efetivos estão registrados em cada cenário."
+  ],
+  "limitations": [
+    "Baseline funcional em banco descartável com seed legado. Não mede N+1, carga, concorrência nem cobertura de todas as combinações de entradas.",
+    "Datas dos seeds são relativas à execução. As tasks sintéticas usam 2000-01-01 para verificar atraso de forma controlada."
+  ],
+  "execution_error": null,
+  "cases": [
+    {
+      "id": "P3-01",
+      "name": "Página inicial",
+      "method": "GET",
+      "path": "/",
+      "route": "/",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Domínio anunciado",
+          "actual": "Task Manager API",
+          "expected": "Task Manager API",
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "message": "Task Manager API",
+        "version": "1.0"
+      },
+      "duration_ms": 1.79,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-02",
+      "name": "Health após boot",
+      "method": "GET",
+      "path": "/health",
+      "route": "/health",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Status de saúde",
+          "actual": "ok",
+          "expected": "ok",
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "status": "ok",
+        "timestamp": "2026-10-29 23:09:50.549008"
+      },
+      "duration_ms": 1.12,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-03",
+      "name": "Listagem inicial de tasks",
+      "method": "GET",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Seed contém dez tasks",
+          "actual": 10,
+          "expected": 10,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": [
+        {
+          "category_id": 1,
+          "category_name": "Backend",
+          "created_at": "2026-10-30 02:09:50.220659",
+          "description": "Adicionar autenticação real com JWT",
+          "due_date": "2026-10-27 02:09:50.219068",
+          "id": 1,
+          "overdue": true,
+          "priority": 1,
+          "status": "pending",
+          "tags": [],
+          "title": "Implementar autenticação JWT",
+          "updated_at": "2026-10-30 02:09:50.220661",
+          "user_id": 1,
+          "user_name": "João Silva"
+        },
+        {
+          "category_id": 2,
+          "category_name": "Frontend",
+          "created_at": "2026-10-30 02:09:50.220662",
+          "description": "Tela de login responsiva",
+          "due_date": "2026-11-04 02:09:50.219414",
+          "id": 2,
+          "overdue": false,
+          "priority": 2,
+          "status": "in_progress",
+          "tags": [],
+          "title": "Criar tela de login",
+          "updated_at": "2026-10-30 02:09:50.220662",
+          "user_id": 2,
+          "user_name": "Maria Santos"
+        },
+        {
+          "category_id": 3,
+          "category_name": "DevOps",
+          "created_at": "2026-10-30 02:09:50.220663",
+          "description": "Pipeline com GitHub Actions",
+          "due_date": null,
+          "id": 3,
+          "overdue": false,
+          "priority": 2,
+          "status": "done",
+          "tags": [
+            "devops",
+            "ci",
+            "github"
+          ],
+          "title": "Configurar CI/CD",
+          "updated_at": "2026-10-30 02:09:50.220663",
+          "user_id": 3,
+          "user_name": "Pedro Oliveira"
+        },
+        {
+          "category_id": 4,
+          "category_name": "Bug",
+          "created_at": "2026-10-30 02:09:50.220664",
+          "description": "Filtro não funciona com caracteres especiais",
+          "due_date": "2026-10-29 02:09:50.219788",
+          "id": 4,
+          "overdue": true,
+          "priority": 1,
+          "status": "pending",
+          "tags": [],
+          "title": "Corrigir bug no filtro de busca",
+          "updated_at": "2026-10-30 02:09:50.220664",
+          "user_id": 1,
+          "user_name": "João Silva"
+        },
+        {
+          "category_id": 1,
+          "category_name": "Backend",
+          "created_at": "2026-10-30 02:09:50.220665",
+          "description": "Endpoints retornam todos os registros",
+          "due_date": "2026-11-09 02:09:50.219798",
+          "id": 5,
+          "overdue": false,
+          "priority": 3,
+          "status": "pending",
+          "tags": [],
+          "title": "Adicionar paginação na API",
+          "updated_at": "2026-10-30 02:09:50.220666",
+          "user_id": 1,
+          "user_name": "João Silva"
+        },
+        {
+          "category_id": 1,
+          "category_name": "Backend",
+          "created_at": "2026-10-30 02:09:50.220666",
+          "description": "Cobertura mínima de 80%",
+          "due_date": null,
+          "id": 6,
+          "overdue": false,
+          "priority": 2,
+          "status": "pending",
+          "tags": [],
+          "title": "Escrever testes unitários",
+          "updated_at": "2026-10-30 02:09:50.220667",
+          "user_id": 2,
+          "user_name": "Maria Santos"
+        },
+        {
+          "category_id": 1,
+          "category_name": "Backend",
+          "created_at": "2026-10-30 02:09:50.220667",
+          "description": "Gerar documentação automática",
+          "due_date": null,
+          "id": 7,
+          "overdue": false,
+          "priority": 4,
+          "status": "cancelled",
+          "tags": [],
+          "title": "Documentar API com Swagger",
+          "updated_at": "2026-10-30 02:09:50.220668",
+          "user_id": 3,
+          "user_name": "Pedro Oliveira"
+        },
+        {
+          "category_id": 1,
+          "category_name": "Backend",
+          "created_at": "2026-10-30 02:09:50.220668",
+          "description": "Melhorar organização dos models",
+          "due_date": null,
+          "id": 8,
+          "overdue": false,
+          "priority": 3,
+          "status": "in_progress",
+          "tags": [
+            "refactor",
+            "tech-debt"
+          ],
+          "title": "Refatorar models",
+          "updated_at": "2026-10-30 02:09:50.220669",
+          "user_id": 2,
+          "user_name": "Maria Santos"
+        },
+        {
+          "category_id": 3,
+          "category_name": "DevOps",
+          "created_at": "2026-10-30 02:09:50.220669",
+          "description": "Prometheus + Grafana",
+          "due_date": "2026-11-19 02:09:50.219806",
+          "id": 9,
+          "overdue": false,
+          "priority": 4,
+          "status": "pending",
+          "tags": [],
+          "title": "Configurar monitoramento",
+          "updated_at": "2026-10-30 02:09:50.220670",
+          "user_id": 3,
+          "user_name": "Pedro Oliveira"
+        },
+        {
+          "category_id": 1,
+          "category_name": "Backend",
+          "created_at": "2026-10-30 02:09:50.220670",
+          "description": "Usar marshmallow ou pydantic",
+          "due_date": null,
+          "id": 10,
+          "overdue": false,
+          "priority": 3,
+          "status": "pending",
+          "tags": [
+            "improvement",
+            "validation"
+          ],
+          "title": "Melhorar validações de input",
+          "updated_at": "2026-10-30 02:09:50.220671",
+          "user_id": 1,
+          "user_name": "João Silva"
+        }
+      ],
+      "duration_ms": 12.86,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-04",
+      "name": "Estatísticas iniciais",
+      "method": "GET",
+      "path": "/tasks/stats",
+      "route": "/tasks/stats",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Total informado igual ao SQLite",
+          "actual": 10,
+          "expected": 10,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "cancelled": 1,
+        "completion_rate": 10.0,
+        "done": 1,
+        "in_progress": 2,
+        "overdue": 2,
+        "pending": 6,
+        "total": 10
+      },
+      "duration_ms": 7.24,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-05",
+      "name": "Listagem inicial de usuários",
+      "method": "GET",
+      "path": "/users",
+      "route": "/users",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Seed contém três usuários",
+          "actual": 3,
+          "expected": 3,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": [
+        {
+          "active": true,
+          "created_at": "2026-10-30 02:09:50.215723",
+          "email": "joao@email.com",
+          "id": 1,
+          "name": "João Silva",
+          "role": "admin",
+          "task_count": 4
+        },
+        {
+          "active": true,
+          "created_at": "2026-10-30 02:09:50.215729",
+          "email": "maria@email.com",
+          "id": 2,
+          "name": "Maria Santos",
+          "role": "user",
+          "task_count": 3
+        },
+        {
+          "active": true,
+          "created_at": "2026-10-30 02:09:50.215730",
+          "email": "pedro@email.com",
+          "id": 3,
+          "name": "Pedro Oliveira",
+          "role": "manager",
+          "task_count": 3
+        }
+      ],
+      "duration_ms": 3.96,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-06",
+      "name": "Listagem inicial de categorias",
+      "method": "GET",
+      "path": "/categories",
+      "route": "/categories",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Seed contém quatro categorias",
+          "actual": 4,
+          "expected": 4,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": [
+        {
+          "color": "#3498db",
+          "created_at": "2026-10-30 02:09:50.216879",
+          "description": "Tarefas de backend",
+          "id": 1,
+          "name": "Backend",
+          "task_count": 6
+        },
+        {
+          "color": "#2ecc71",
+          "created_at": "2026-10-30 02:09:50.216881",
+          "description": "Tarefas de frontend",
+          "id": 2,
+          "name": "Frontend",
+          "task_count": 1
+        },
+        {
+          "color": "#e74c3c",
+          "created_at": "2026-10-30 02:09:50.216881",
+          "description": "Tarefas de infraestrutura",
+          "id": 3,
+          "name": "DevOps",
+          "task_count": 2
+        },
+        {
+          "color": "#e67e22",
+          "created_at": "2026-10-30 02:09:50.216882",
+          "description": "Correção de bugs",
+          "id": 4,
+          "name": "Bug",
+          "task_count": 1
+        }
+      ],
+      "duration_ms": 4.77,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-07",
+      "name": "Relatório geral inicial",
+      "method": "GET",
+      "path": "/reports/summary",
+      "route": "/reports/summary",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Totais do relatório correspondem aos seeds",
+          "actual": {
+            "total_categories": 4,
+            "total_tasks": 10,
+            "total_users": 3
+          },
+          "expected": {
+            "total_tasks": 10,
+            "total_users": 3,
+            "total_categories": 4
+          },
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "generated_at": "2026-10-30 02:09:50.591952",
+        "overdue": {
+          "count": 2,
+          "tasks": [
+            {
+              "days_overdue": 3,
+              "due_date": "2026-10-27 02:09:50.219068",
+              "id": 1,
+              "title": "Implementar autenticação JWT"
+            },
+            {
+              "days_overdue": 1,
+              "due_date": "2026-10-29 02:09:50.219788",
+              "id": 4,
+              "title": "Corrigir bug no filtro de busca"
+            }
+          ]
+        },
+        "overview": {
+          "total_categories": 4,
+          "total_tasks": 10,
+          "total_users": 3
+        },
+        "recent_activity": {
+          "tasks_completed_last_7_days": 1,
+          "tasks_created_last_7_days": 10
+        },
+        "tasks_by_priority": {
+          "critical": 2,
+          "high": 3,
+          "low": 2,
+          "medium": 3,
+          "minimal": 0
+        },
+        "tasks_by_status": {
+          "cancelled": 1,
+          "done": 1,
+          "in_progress": 2,
+          "pending": 6
+        },
+        "user_productivity": [
+          {
+            "completed_tasks": 0,
+            "completion_rate": 0.0,
+            "total_tasks": 4,
+            "user_id": 1,
+            "user_name": "João Silva"
+          },
+          {
+            "completed_tasks": 0,
+            "completion_rate": 0.0,
+            "total_tasks": 3,
+            "user_id": 2,
+            "user_name": "Maria Santos"
+          },
+          {
+            "completed_tasks": 1,
+            "completion_rate": 33.33,
+            "total_tasks": 3,
+            "user_id": 3,
+            "user_name": "Pedro Oliveira"
+          }
+        ]
+      },
+      "duration_ms": 9.73,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-08",
+      "name": "Detalhe do usuário seed sem autenticação",
+      "method": "GET",
+      "path": "/users/1",
+      "route": "/users/<int:user_id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Resposta omite senha/hash",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Dados de usuário exigem autorização",
+          "actual": false,
+          "expected": true,
+          "ok": false
+        }
+      ],
+      "notes": [
+        "O serializer legado inclui o campo password; valor mascarado na evidência."
+      ],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "active": true,
+        "created_at": "2026-10-30 02:09:50.215723",
+        "email": "joao@email.com",
+        "id": 1,
+        "name": "João Silva",
+        "password": "[MASCARADO]",
+        "role": "admin",
+        "tasks": [
+          {
+            "category_id": 1,
+            "created_at": "2026-10-30 02:09:50.220659",
+            "description": "Adicionar autenticação real com JWT",
+            "due_date": "2026-10-27 02:09:50.219068",
+            "id": 1,
+            "priority": 1,
+            "status": "pending",
+            "tags": [],
+            "title": "Implementar autenticação JWT",
+            "updated_at": "2026-10-30 02:09:50.220661",
+            "user_id": 1
+          },
+          {
+            "category_id": 4,
+            "created_at": "2026-10-30 02:09:50.220664",
+            "description": "Filtro não funciona com caracteres especiais",
+            "due_date": "2026-10-29 02:09:50.219788",
+            "id": 4,
+            "priority": 1,
+            "status": "pending",
+            "tags": [],
+            "title": "Corrigir bug no filtro de busca",
+            "updated_at": "2026-10-30 02:09:50.220664",
+            "user_id": 1
+          },
+          {
+            "category_id": 1,
+            "created_at": "2026-10-30 02:09:50.220665",
+            "description": "Endpoints retornam todos os registros",
+            "due_date": "2026-11-09 02:09:50.219798",
+            "id": 5,
+            "priority": 3,
+            "status": "pending",
+            "tags": [],
+            "title": "Adicionar paginação na API",
+            "updated_at": "2026-10-30 02:09:50.220666",
+            "user_id": 1
+          },
+          {
+            "category_id": 1,
+            "created_at": "2026-10-30 02:09:50.220670",
+            "description": "Usar marshmallow ou pydantic",
+            "due_date": null,
+            "id": 10,
+            "priority": 3,
+            "status": "pending",
+            "tags": [
+              "improvement",
+              "validation"
+            ],
+            "title": "Melhorar validações de input",
+            "updated_at": "2026-10-30 02:09:50.220671",
+            "user_id": 1
+          }
+        ]
+      },
+      "duration_ms": 1.97,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-09",
+      "name": "Tasks do usuário seed",
+      "method": "GET",
+      "path": "/users/1/tasks",
+      "route": "/users/<int:user_id>/tasks",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": [
+        {
+          "created_at": "2026-10-30 02:09:50.220659",
+          "description": "Adicionar autenticação real com JWT",
+          "due_date": "2026-10-27 02:09:50.219068",
+          "id": 1,
+          "overdue": true,
+          "priority": 1,
+          "status": "pending",
+          "title": "Implementar autenticação JWT"
+        },
+        {
+          "created_at": "2026-10-30 02:09:50.220664",
+          "description": "Filtro não funciona com caracteres especiais",
+          "due_date": "2026-10-29 02:09:50.219788",
+          "id": 4,
+          "overdue": true,
+          "priority": 1,
+          "status": "pending",
+          "title": "Corrigir bug no filtro de busca"
+        },
+        {
+          "created_at": "2026-10-30 02:09:50.220665",
+          "description": "Endpoints retornam todos os registros",
+          "due_date": "2026-11-09 02:09:50.219798",
+          "id": 5,
+          "overdue": false,
+          "priority": 3,
+          "status": "pending",
+          "title": "Adicionar paginação na API"
+        },
+        {
+          "created_at": "2026-10-30 02:09:50.220670",
+          "description": "Usar marshmallow ou pydantic",
+          "due_date": null,
+          "id": 10,
+          "overdue": false,
+          "priority": 3,
+          "status": "pending",
+          "title": "Melhorar validações de input"
+        }
+      ],
+      "duration_ms": 1.97,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-10",
+      "name": "Relatório do usuário seed",
+      "method": "GET",
+      "path": "/reports/user/1",
+      "route": "/reports/user/<int:user_id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "statistics": {
+          "cancelled": 0,
+          "completion_rate": 0.0,
+          "done": 0,
+          "high_priority": 2,
+          "in_progress": 0,
+          "overdue": 2,
+          "pending": 4,
+          "total_tasks": 4
+        },
+        "user": {
+          "email": "joao@email.com",
+          "id": 1,
+          "name": "João Silva"
+        }
+      },
+      "duration_ms": 2.17,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-11",
+      "name": "Task inexistente",
+      "method": "GET",
+      "path": "/tasks/999999",
+      "route": "/tasks/<int:task_id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Task não encontrada"
+      },
+      "duration_ms": 2.52,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-12",
+      "name": "Usuário inexistente",
+      "method": "GET",
+      "path": "/users/999999",
+      "route": "/users/<int:user_id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Usuário não encontrado"
+      },
+      "duration_ms": 1.6,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-13",
+      "name": "Tasks de usuário inexistente",
+      "method": "GET",
+      "path": "/users/999999/tasks",
+      "route": "/users/<int:user_id>/tasks",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Usuário não encontrado"
+      },
+      "duration_ms": 1.55,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-14",
+      "name": "Relatório de usuário inexistente",
+      "method": "GET",
+      "path": "/reports/user/999999",
+      "route": "/reports/user/<int:user_id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Usuário não encontrado"
+      },
+      "duration_ms": 1.33,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-15",
+      "name": "Criar usuário sintético",
+      "method": "POST",
+      "path": "/users",
+      "route": "/users",
+      "request": {
+        "name": "Baseline Task User",
+        "email": "baseline.task@example.test",
+        "password": "[MASCARADO]"
+      },
+      "expected_status": 201,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Resposta omite senha/hash",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Usuário persistido no SQLite",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        },
+        {
+          "name": "Senha não utiliza MD5 determinístico",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [
+        "O serializer legado inclui o campo password; valor mascarado na evidência."
+      ],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "active": true,
+        "created_at": "2026-10-30 02:09:50.615169",
+        "email": "baseline.task@example.test",
+        "id": 4,
+        "name": "Baseline Task User",
+        "password": "[MASCARADO]",
+        "role": "user"
+      },
+      "duration_ms": 4.64,
+      "db_after": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-16",
+      "name": "Email duplicado",
+      "method": "POST",
+      "path": "/users",
+      "route": "/users",
+      "request": {
+        "name": "Baseline Task User",
+        "email": "baseline.task@example.test",
+        "password": "[MASCARADO]"
+      },
+      "expected_status": 409,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 409,
+      "content_type": "application/json",
+      "body": {
+        "error": "Email já cadastrado"
+      },
+      "duration_ms": 1.93,
+      "db_after": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-17",
+      "name": "Email inválido",
+      "method": "POST",
+      "path": "/users",
+      "route": "/users",
+      "request": {
+        "name": "Invalid",
+        "email": "invalido",
+        "password": "[MASCARADO]"
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "error": "Email inválido"
+      },
+      "duration_ms": 1.14,
+      "db_after": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-18",
+      "name": "Usuário sem campos obrigatórios",
+      "method": "POST",
+      "path": "/users",
+      "route": "/users",
+      "request": {},
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "error": "Dados inválidos"
+      },
+      "duration_ms": 1.02,
+      "db_after": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-19",
+      "name": "Login válido do usuário sintético",
+      "method": "POST",
+      "path": "/login",
+      "route": "/login",
+      "request": {
+        "email": "baseline.task@example.test",
+        "password": "[MASCARADO]"
+      },
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Resposta omite senha/hash",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Token não é literal previsível",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [
+        "O serializer legado inclui o campo password; valor mascarado na evidência."
+      ],
+      "db_before": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "message": "Login realizado com sucesso",
+        "token": "[MASCARADO]",
+        "user": {
+          "active": true,
+          "created_at": "2026-10-30 02:09:50.615169",
+          "email": "baseline.task@example.test",
+          "id": 4,
+          "name": "Baseline Task User",
+          "password": "[MASCARADO]",
+          "role": "user"
+        }
+      },
+      "duration_ms": 1.98,
+      "db_after": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-20",
+      "name": "Login com senha incorreta",
+      "method": "POST",
+      "path": "/login",
+      "route": "/login",
+      "request": {
+        "email": "baseline.task@example.test",
+        "password": "[MASCARADO]"
+      },
+      "expected_status": 401,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 401,
+      "content_type": "application/json",
+      "body": {
+        "error": "Credenciais inválidas"
+      },
+      "duration_ms": 1.72,
+      "db_after": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-21",
+      "name": "Login com dados vazios",
+      "method": "POST",
+      "path": "/login",
+      "route": "/login",
+      "request": {},
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "error": "Dados inválidos"
+      },
+      "duration_ms": 1.05,
+      "db_after": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-22",
+      "name": "Criar categoria sintética",
+      "method": "POST",
+      "path": "/categories",
+      "route": "/categories",
+      "request": {
+        "name": "Baseline Category",
+        "description": "Fixture descartável",
+        "color": "#123456"
+      },
+      "expected_status": 201,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Categoria persistida",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "color": "#123456",
+        "created_at": "2026-10-30 02:09:50.633162",
+        "description": "Fixture descartável",
+        "id": 5,
+        "name": "Baseline Category"
+      },
+      "duration_ms": 2.42,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-23",
+      "name": "Categoria sem nome",
+      "method": "POST",
+      "path": "/categories",
+      "route": "/categories",
+      "request": {},
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "error": "Dados inválidos"
+      },
+      "duration_ms": 1.13,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-24",
+      "name": "Editar categoria inexistente",
+      "method": "PUT",
+      "path": "/categories/999999",
+      "route": "/categories/<int:cat_id>",
+      "request": {
+        "name": "Missing"
+      },
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Categoria não encontrada"
+      },
+      "duration_ms": 1.73,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-25",
+      "name": "Excluir categoria inexistente",
+      "method": "DELETE",
+      "path": "/categories/999999",
+      "route": "/categories/<int:cat_id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Categoria não encontrada"
+      },
+      "duration_ms": 1.83,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-26",
+      "name": "Editar categoria sintética",
+      "method": "PUT",
+      "path": "/categories/5",
+      "route": "/categories/<int:cat_id>",
+      "request": {
+        "name": "Baseline Category Updated",
+        "color": "#abcdef"
+      },
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Nome e cor persistidos",
+          "actual": [
+            {
+              "name": "Baseline Category Updated",
+              "color": "#abcdef"
+            }
+          ],
+          "expected": [
+            {
+              "name": "Baseline Category Updated",
+              "color": "#abcdef"
+            }
+          ],
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "color": "#abcdef",
+        "created_at": "2026-10-30 02:09:50.633162",
+        "description": "Fixture descartável",
+        "id": 5,
+        "name": "Baseline Category Updated"
+      },
+      "duration_ms": 3.36,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-27",
+      "name": "Editar nome de usuário",
+      "method": "PUT",
+      "path": "/users/4",
+      "route": "/users/<int:user_id>",
+      "request": {
+        "name": "Baseline Task User Updated"
+      },
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Resposta omite senha/hash",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Nome atualizado no SQLite",
+          "actual": [
+            {
+              "name": "Baseline Task User Updated"
+            }
+          ],
+          "expected": [
+            {
+              "name": "Baseline Task User Updated"
+            }
+          ],
+          "ok": true
+        }
+      ],
+      "notes": [
+        "O serializer legado inclui o campo password; valor mascarado na evidência."
+      ],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "active": true,
+        "created_at": "2026-10-30 02:09:50.615169",
+        "email": "baseline.task@example.test",
+        "id": 4,
+        "name": "Baseline Task User Updated",
+        "password": "[MASCARADO]",
+        "role": "user"
+      },
+      "duration_ms": 3.16,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-28",
+      "name": "Criar task sintética",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "title": "Baseline synthetic task",
+        "description": "Task de regressão descartável",
+        "status": "pending",
+        "priority": 2,
+        "user_id": 4,
+        "category_id": 5,
+        "due_date": "2000-01-01",
+        "tags": [
+          "baseline",
+          "fixture"
+        ]
+      },
+      "expected_status": 201,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Task persistida",
+          "actual": 1,
+          "expected": 1,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "category_id": 5,
+        "created_at": "2026-10-30 02:09:50.655383",
+        "description": "Task de regressão descartável",
+        "due_date": "2000-01-01 00:00:00",
+        "id": 11,
+        "priority": 2,
+        "status": "pending",
+        "tags": [
+          "baseline",
+          "fixture"
+        ],
+        "title": "Baseline synthetic task",
+        "updated_at": "2026-10-30 02:09:50.655385",
+        "user_id": 4
+      },
+      "duration_ms": 5.0,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-29",
+      "name": "Buscar task por texto e filtros",
+      "method": "GET",
+      "path": "/tasks/search?q=Baseline&status=pending&priority=2&user_id=4",
+      "route": "/tasks/search",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Busca inclui task criada",
+          "actual": true,
+          "expected": true,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": [
+        {
+          "category_id": 5,
+          "created_at": "2026-10-30 02:09:50.655383",
+          "description": "Task de regressão descartável",
+          "due_date": "2000-01-01 00:00:00",
+          "id": 11,
+          "priority": 2,
+          "status": "pending",
+          "tags": [
+            "baseline",
+            "fixture"
+          ],
+          "title": "Baseline synthetic task",
+          "updated_at": "2026-10-30 02:09:50.655385",
+          "user_id": 4
+        }
+      ],
+      "duration_ms": 2.36,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-30",
+      "name": "Detalhe da task vencida",
+      "method": "GET",
+      "path": "/tasks/11",
+      "route": "/tasks/<int:task_id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Data fixa classificada como atrasada",
+          "actual": true,
+          "expected": true,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "category_id": 5,
+        "created_at": "2026-10-30 02:09:50.655383",
+        "description": "Task de regressão descartável",
+        "due_date": "2000-01-01 00:00:00",
+        "id": 11,
+        "overdue": true,
+        "priority": 2,
+        "status": "pending",
+        "tags": [
+          "baseline",
+          "fixture"
+        ],
+        "title": "Baseline synthetic task",
+        "updated_at": "2026-10-30 02:09:50.655385",
+        "user_id": 4
+      },
+      "duration_ms": 1.18,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-31",
+      "name": "Concluir task sintética",
+      "method": "PUT",
+      "path": "/tasks/11",
+      "route": "/tasks/<int:task_id>",
+      "request": {
+        "status": "done",
+        "priority": 1,
+        "title": "Baseline completed task"
+      },
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Status e prioridade persistidos",
+          "actual": [
+            {
+              "status": "done",
+              "priority": 1
+            }
+          ],
+          "expected": [
+            {
+              "status": "done",
+              "priority": 1
+            }
+          ],
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "category_id": 5,
+        "created_at": "2026-10-30 02:09:50.655383",
+        "description": "Task de regressão descartável",
+        "due_date": "2000-01-01 00:00:00",
+        "id": 11,
+        "priority": 1,
+        "status": "done",
+        "tags": [
+          "baseline",
+          "fixture"
+        ],
+        "title": "Baseline completed task",
+        "updated_at": "2026-10-30 02:09:50.662676",
+        "user_id": 4
+      },
+      "duration_ms": 2.12,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-32",
+      "name": "Detalhe da task concluída",
+      "method": "GET",
+      "path": "/tasks/11",
+      "route": "/tasks/<int:task_id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Task concluída não está atrasada",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "category_id": 5,
+        "created_at": "2026-10-30 02:09:50.655383",
+        "description": "Task de regressão descartável",
+        "due_date": "2000-01-01 00:00:00",
+        "id": 11,
+        "overdue": false,
+        "priority": 1,
+        "status": "done",
+        "tags": [
+          "baseline",
+          "fixture"
+        ],
+        "title": "Baseline completed task",
+        "updated_at": "2026-10-30 02:09:50.662676",
+        "user_id": 4
+      },
+      "duration_ms": 1.49,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-33",
+      "name": "Task sem título",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "description": "Sem título"
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "error": "Título é obrigatório"
+      },
+      "duration_ms": 1.08,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-34",
+      "name": "Task com status inválido",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "title": "Invalid status",
+        "status": "invalid"
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "error": "Status inválido"
+      },
+      "duration_ms": 1.18,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-35",
+      "name": "Task com prioridade fora da faixa",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "title": "Invalid priority",
+        "priority": 6
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "error": "Prioridade deve ser entre 1 e 5"
+      },
+      "duration_ms": 1.14,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-36",
+      "name": "Task com prioridade textual",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "title": "Invalid type",
+        "priority": "alta"
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 500,
+      "content_type": "text/html; charset=utf-8",
+      "body": "<!doctype html>\n<html lang=en>\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>\n",
+      "duration_ms": 3.02,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-37",
+      "name": "Task com título numérico",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "title": 123
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 500,
+      "content_type": "text/html; charset=utf-8",
+      "body": "<!doctype html>\n<html lang=en>\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>\n",
+      "duration_ms": 1.88,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-38",
+      "name": "Busca com prioridade inválida",
+      "method": "GET",
+      "path": "/tasks/search?priority=alta",
+      "route": "/tasks/search",
+      "request": null,
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 500,
+      "content_type": "text/html; charset=utf-8",
+      "body": "<!doctype html>\n<html lang=en>\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>\n",
+      "duration_ms": 1.99,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-39",
+      "name": "Busca com usuário inválido",
+      "method": "GET",
+      "path": "/tasks/search?user_id=invalid",
+      "route": "/tasks/search",
+      "request": null,
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 500,
+      "content_type": "text/html; charset=utf-8",
+      "body": "<!doctype html>\n<html lang=en>\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>\n",
+      "duration_ms": 1.87,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-40",
+      "name": "Task com usuário inexistente",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "title": "Missing relation",
+        "user_id": 999999
+      },
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Usuário não encontrado"
+      },
+      "duration_ms": 1.54,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-41",
+      "name": "Task com categoria inexistente",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "title": "Missing relation",
+        "category_id": 999999
+      },
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Categoria não encontrada"
+      },
+      "duration_ms": 1.53,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-42",
+      "name": "Task com data inválida",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "title": "Invalid date",
+        "due_date": "31/13/2000"
+      },
+      "expected_status": 400,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 400,
+      "content_type": "application/json",
+      "body": {
+        "error": "Formato de data inválido. Use YYYY-MM-DD"
+      },
+      "duration_ms": 1.24,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-43",
+      "name": "Editar task inexistente",
+      "method": "PUT",
+      "path": "/tasks/999999",
+      "route": "/tasks/<int:task_id>",
+      "request": {
+        "status": "done"
+      },
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Task não encontrada"
+      },
+      "duration_ms": 1.6,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-44",
+      "name": "Excluir task inexistente",
+      "method": "DELETE",
+      "path": "/tasks/999999",
+      "route": "/tasks/<int:task_id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Task não encontrada"
+      },
+      "duration_ms": 1.49,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-45",
+      "name": "Editar usuário inexistente",
+      "method": "PUT",
+      "path": "/users/999999",
+      "route": "/users/<int:user_id>",
+      "request": {
+        "name": "Missing"
+      },
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Usuário não encontrado"
+      },
+      "duration_ms": 1.24,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-46",
+      "name": "Excluir usuário inexistente",
+      "method": "DELETE",
+      "path": "/users/999999",
+      "route": "/users/<int:user_id>",
+      "request": null,
+      "expected_status": 404,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 404,
+      "content_type": "application/json",
+      "body": {
+        "error": "Usuário não encontrado"
+      },
+      "duration_ms": 1.51,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-47",
+      "name": "Inativar usuário sintético",
+      "method": "PUT",
+      "path": "/users/4",
+      "route": "/users/<int:user_id>",
+      "request": {
+        "active": false
+      },
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "active": false,
+        "created_at": "2026-10-30 02:09:50.615169",
+        "email": "baseline.task@example.test",
+        "id": 4,
+        "name": "Baseline Task User Updated",
+        "password": "[MASCARADO]",
+        "role": "user"
+      },
+      "duration_ms": 2.49,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-48",
+      "name": "Login do usuário inativo",
+      "method": "POST",
+      "path": "/login",
+      "route": "/login",
+      "request": {
+        "email": "baseline.task@example.test",
+        "password": "[MASCARADO]"
+      },
+      "expected_status": 403,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 403,
+      "content_type": "application/json",
+      "body": {
+        "error": "Usuário inativo"
+      },
+      "duration_ms": 2.09,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-49",
+      "name": "Reativar usuário sintético",
+      "method": "PUT",
+      "path": "/users/4",
+      "route": "/users/<int:user_id>",
+      "request": {
+        "active": true
+      },
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "active": true,
+        "created_at": "2026-10-30 02:09:50.615169",
+        "email": "baseline.task@example.test",
+        "id": 4,
+        "name": "Baseline Task User Updated",
+        "password": "[MASCARADO]",
+        "role": "user"
+      },
+      "duration_ms": 2.0,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-50",
+      "name": "Cliente promove usuário a admin sem autorização",
+      "method": "PUT",
+      "path": "/users/4",
+      "route": "/users/<int:user_id>",
+      "request": {
+        "role": "admin"
+      },
+      "expected_status": [
+        401,
+        403
+      ],
+      "expectation": "Alteração de privilégio exige autorização administrativa.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Solicitação anônima não promove role",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "active": true,
+        "created_at": "2026-10-30 02:09:50.615169",
+        "email": "baseline.task@example.test",
+        "id": 4,
+        "name": "Baseline Task User Updated",
+        "password": "[MASCARADO]",
+        "role": "admin"
+      },
+      "duration_ms": 2.22,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-51",
+      "name": "Cadastro solicita role administrativa",
+      "method": "POST",
+      "path": "/users",
+      "route": "/users",
+      "request": {
+        "name": "Baseline Admin Request",
+        "email": "baseline.admin@example.test",
+        "password": "[MASCARADO]",
+        "role": "admin"
+      },
+      "expected_status": [
+        400,
+        403
+      ],
+      "expectation": "Cadastro público não concede role administrativa fornecida pelo cliente.",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        },
+        {
+          "name": "Cadastro não concede role admin",
+          "actual": true,
+          "expected": false,
+          "ok": false
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "active": true,
+        "created_at": "2026-10-30 02:09:50.722895",
+        "email": "baseline.admin@example.test",
+        "id": 5,
+        "name": "Baseline Admin Request",
+        "password": "[MASCARADO]",
+        "role": "admin"
+      },
+      "duration_ms": 2.37,
+      "db_after": {
+        "users": 5,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-52",
+      "name": "Excluir task sintética",
+      "method": "DELETE",
+      "path": "/tasks/11",
+      "route": "/tasks/<int:task_id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Task removida do SQLite",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 5,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "message": "Task deletada com sucesso"
+      },
+      "duration_ms": 2.53,
+      "db_after": {
+        "users": 5,
+        "categories": 5,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-53",
+      "name": "Criar task para validar exclusão do usuário",
+      "method": "POST",
+      "path": "/tasks",
+      "route": "/tasks",
+      "request": {
+        "title": "Baseline cascade task",
+        "user_id": 4,
+        "category_id": 5
+      },
+      "expected_status": 201,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [
+        "Fixture usada para conferir o efeito da exclusão do usuário em suas tasks."
+      ],
+      "db_before": {
+        "users": 5,
+        "categories": 5,
+        "tasks": 10
+      },
+      "status": 201,
+      "content_type": "application/json",
+      "body": {
+        "category_id": 5,
+        "created_at": "2026-10-30 02:09:50.729905",
+        "description": "",
+        "due_date": null,
+        "id": 11,
+        "priority": 3,
+        "status": "pending",
+        "tags": [],
+        "title": "Baseline cascade task",
+        "updated_at": "2026-10-30 02:09:50.729908",
+        "user_id": 4
+      },
+      "duration_ms": 2.23,
+      "db_after": {
+        "users": 5,
+        "categories": 5,
+        "tasks": 11
+      }
+    },
+    {
+      "id": "P3-54",
+      "name": "Excluir usuário e suas tasks",
+      "method": "DELETE",
+      "path": "/users/4",
+      "route": "/users/<int:user_id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Usuário removido",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        },
+        {
+          "name": "Tasks do usuário removidas",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 5,
+        "categories": 5,
+        "tasks": 11
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "message": "Usuário deletado com sucesso"
+      },
+      "duration_ms": 2.91,
+      "db_after": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-55",
+      "name": "Remover cadastro de privilégio da fixture",
+      "method": "DELETE",
+      "path": "/users/5",
+      "route": "/users/<int:user_id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 4,
+        "categories": 5,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "message": "Usuário deletado com sucesso"
+      },
+      "duration_ms": 2.44,
+      "db_after": {
+        "users": 3,
+        "categories": 5,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-56",
+      "name": "Excluir categoria sintética",
+      "method": "DELETE",
+      "path": "/categories/5",
+      "route": "/categories/<int:cat_id>",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Categoria removida",
+          "actual": 0,
+          "expected": 0,
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 5,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "message": "Categoria deletada"
+      },
+      "duration_ms": 2.78,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    },
+    {
+      "id": "P3-57",
+      "name": "Relatório final após limpeza das fixtures",
+      "method": "GET",
+      "path": "/reports/summary",
+      "route": "/reports/summary",
+      "request": null,
+      "expected_status": 200,
+      "expectation": "",
+      "checks": [
+        {
+          "name": "Resposta omite campos de senha/hash/segredo",
+          "actual": false,
+          "expected": false,
+          "ok": true
+        },
+        {
+          "name": "Contagens dos seeds preservadas",
+          "actual": {
+            "total_categories": 4,
+            "total_tasks": 10,
+            "total_users": 3
+          },
+          "expected": {
+            "total_tasks": 10,
+            "total_users": 3,
+            "total_categories": 4
+          },
+          "ok": true
+        }
+      ],
+      "notes": [],
+      "db_before": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      },
+      "status": 200,
+      "content_type": "application/json",
+      "body": {
+        "generated_at": "2026-10-30 02:09:50.747431",
+        "overdue": {
+          "count": 2,
+          "tasks": [
+            {
+              "days_overdue": 3,
+              "due_date": "2026-10-27 02:09:50.219068",
+              "id": 1,
+              "title": "Implementar autenticação JWT"
+            },
+            {
+              "days_overdue": 1,
+              "due_date": "2026-10-29 02:09:50.219788",
+              "id": 4,
+              "title": "Corrigir bug no filtro de busca"
+            }
+          ]
+        },
+        "overview": {
+          "total_categories": 4,
+          "total_tasks": 10,
+          "total_users": 3
+        },
+        "recent_activity": {
+          "tasks_completed_last_7_days": 1,
+          "tasks_created_last_7_days": 10
+        },
+        "tasks_by_priority": {
+          "critical": 2,
+          "high": 3,
+          "low": 2,
+          "medium": 3,
+          "minimal": 0
+        },
+        "tasks_by_status": {
+          "cancelled": 1,
+          "done": 1,
+          "in_progress": 2,
+          "pending": 6
+        },
+        "user_productivity": [
+          {
+            "completed_tasks": 0,
+            "completion_rate": 0.0,
+            "total_tasks": 4,
+            "user_id": 1,
+            "user_name": "João Silva"
+          },
+          {
+            "completed_tasks": 0,
+            "completion_rate": 0.0,
+            "total_tasks": 3,
+            "user_id": 2,
+            "user_name": "Maria Santos"
+          },
+          {
+            "completed_tasks": 1,
+            "completion_rate": 33.33,
+            "total_tasks": 3,
+            "user_id": 3,
+            "user_name": "Pedro Oliveira"
+          }
+        ]
+      },
+      "duration_ms": 6.05,
+      "db_after": {
+        "users": 3,
+        "categories": 4,
+        "tasks": 10
+      }
+    }
+  ]
+}
