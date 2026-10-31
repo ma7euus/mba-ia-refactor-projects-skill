@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-10-31T03:31:44.166Z",
+  "command": "npm start",
+  "sourceTarget": "current-working-tree",
+  "configuredHost": "127.0.0.1",
+  "ephemeralPort": true,
+  "explicitDemoSeed": true,
+  "initialRevenue": 997,
+  "authorizedReport": 200,
+  "anonymousReport": 401,
+  "checkout": 200,
+  "enrolledUserDeletion": 409,
+  "sensitiveMarkersFound": 0,
+  "processGroupStopped": true,
+  "npmExit": {
+    "code": null,
+    "signal": "SIGTERM"
+  },
+  "passed": true
+}

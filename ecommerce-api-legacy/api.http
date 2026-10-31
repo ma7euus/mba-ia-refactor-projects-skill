@@ -1,4 +1,6 @@
 @baseUrl = http://localhost:3000
+# Substitua no cliente HTTP pelo valor de ADMIN_API_TOKEN do processo.
+@adminToken = TOKEN_ADMINISTRATIVO_DO_AMBIENTE
 
 ### Checkout - sucesso
 POST {{baseUrl}}/api/checkout
@@ -7,9 +9,9 @@ Content-Type: application/json
 {
   "usr": "Guilherme",
   "eml": "gui@fullcycle.com.br",
-  "pwd": "senhaforte",
+  "pwd": "senha-sintetica-de-teste",
   "c_id": 2,
-  "card": "4111222233334444"
+  "card": "4-demo-aprovado"
 }
 
 ### Checkout - pagamento recusado
@@ -19,13 +21,15 @@ Content-Type: application/json
 {
   "usr": "João",
   "eml": "joao@teste.com",
-  "pwd": "123",
+  "pwd": "senha-sintetica-de-teste",
   "c_id": 1,
-  "card": "5111222233334444"
+  "card": "5-demo-recusado"
 }
 
 ### Relatório financeiro administrativo
 GET {{baseUrl}}/api/admin/financial-report
+Authorization: Bearer {{adminToken}}
 
-### Deletar usuário
+### Usuário demonstrativo matriculado: 409, histórico preservado
 DELETE {{baseUrl}}/api/users/1
+Authorization: Bearer {{adminToken}}

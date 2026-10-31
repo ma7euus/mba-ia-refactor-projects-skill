@@ -1,0 +1,375 @@
+{
+  "project": "ecommerce-api-legacy",
+  "timestamp": "2026-10-31T03:29:59.944Z",
+  "sourceTarget": "current-working-tree",
+  "isolation": "fresh SQLite :memory: per application; synthetic fixtures; loopback HTTP",
+  "environment": {
+    "node": "v24.19.0",
+    "express": "4.22.1",
+    "sqlite3": "5.1.7",
+    "sqlite": "3.44.2"
+  },
+  "sourceHashes": {
+    "src/app.js": "49c1f5887c89ace9db2a9502e3228e988e571eeda14d1bf1c65e896905471262",
+    "src/config.js": "2a5f194d837fa374ede2c5f12714b4b9ae3258afacfcf92448c87b2ede724d8a",
+    "src/controllers/index.js": "093dba8c90506e4f26e513182054667611763670ff43bc21817561f2b88abfa3",
+    "src/database.js": "082b2e744ca3c0580e225240d88f6fc1d81355dc229e6058ef22ce5d0b46b9ad",
+    "src/errors.js": "2bbe520b14785b9250af0cc6eed37545b99f79b6ce7e8361112ff621f89ae277",
+    "src/models/audit.js": "464b3f2e38ef7d749822e9060afe91d8bf52aa1881736220b2cb92ed972a64e5",
+    "src/models/courses.js": "4df7811332a365aca18607148f3297a60d9560035001867fb4b4d501e9121743",
+    "src/models/enrollments.js": "04320fc3cc8275c74d28ecca2ba31c628764e32cacb18105e9e42e48fd011541",
+    "src/models/payments.js": "992f1db61cf236932337722a03f8ebd5535f318ad0de620c9ad75e49b48fce55",
+    "src/models/reports.js": "10ddf273b84d77f77b73cd0557b941610162b77f8cf35cefe715611e4605b037",
+    "src/models/users.js": "cb5c97a44aab5f408c49da517b290724d4f708a611cf36f434581a2aa0e51e2d",
+    "src/seed.js": "2ebad987cd831729f07e2afe49140ab015ea56e76ffce2634ac47db56ce26f94",
+    "src/services/checkout.js": "fa7ec33ee1d5e351f40bf7d4c2936d1e4e0ad0e405fd3bde85f6b8494979fca0",
+    "src/services/passwords.js": "b979a518f4af46143fce55f26b8bdcc49b8d8cb076c757b01a4ec5879e7830c0",
+    "src/services/payment.js": "b5c13c29e4074c8614f4681a9232aa4d63212558cc597d651a6c9ccac04b2fcc",
+    "src/views/routes.js": "21e555e9fa00b0e69e92d2d3a681effb6ca286db4ed55b1aaa7cf988fc8783fa"
+  },
+  "operations": [
+    {
+      "method": "POST",
+      "route": "/api/checkout"
+    },
+    {
+      "method": "GET",
+      "route": "/api/admin/financial-report"
+    },
+    {
+      "method": "DELETE",
+      "route": "/api/users/:id"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "P2-01",
+      "name": "Relatório inicial autorizado, cursos e seed equivalentes",
+      "passed": true,
+      "status": 200,
+      "revenue": 997,
+      "counts": {
+        "users": 1,
+        "courses": 2,
+        "enrollments": 1,
+        "payments": 1,
+        "audit_logs": 0
+      },
+      "durationMs": 29
+    },
+    {
+      "id": "P2-02",
+      "name": "Checkout novo persiste usuário, matrícula, pagamento e auditoria",
+      "passed": true,
+      "status": 200,
+      "paymentStatus": "PAID",
+      "amount": 997,
+      "durationMs": 43
+    },
+    {
+      "id": "P2-03",
+      "name": "Relatório após checkout conserva formato, aluno e receita",
+      "passed": true,
+      "status": 200,
+      "revenue": 1994,
+      "durationMs": 3
+    },
+    {
+      "id": "P2-04",
+      "name": "Senha válida reutiliza conta no segundo curso",
+      "passed": true,
+      "status": 200,
+      "revenue": 2491,
+      "duplicatedUsers": 0,
+      "durationMs": 36
+    },
+    {
+      "id": "P2-05",
+      "name": "Pagamento recusado retorna 400 sem qualquer gravação",
+      "passed": true,
+      "status": 400,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 6
+    },
+    {
+      "id": "P2-06",
+      "name": "Campos obrigatórios ausentes são rejeitados",
+      "passed": true,
+      "status": 400,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 5
+    },
+    {
+      "id": "P2-07",
+      "name": "Curso inexistente retorna 404 sem gravações",
+      "passed": true,
+      "status": 404,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 6
+    },
+    {
+      "id": "P2-08",
+      "name": "Cadastro sem senha é rejeitado",
+      "passed": true,
+      "status": 400,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 5
+    },
+    {
+      "id": "P2-09",
+      "name": "Email malformado é rejeitado antes da persistência",
+      "passed": true,
+      "status": 400,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 4
+    },
+    {
+      "id": "P2-10",
+      "name": "Relatório administrativo anônimo é negado",
+      "passed": true,
+      "status": 401,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 4
+    },
+    {
+      "id": "P2-11",
+      "name": "Exclusão de usuário matriculado é impedida sem órfãos",
+      "passed": true,
+      "status": 409,
+      "allStoredFieldsUnchanged": true,
+      "foreignKeyViolations": 0,
+      "durationMs": 5
+    },
+    {
+      "id": "P2-12",
+      "name": "Relatório mantém receita e alunos após exclusão impedida",
+      "passed": true,
+      "status": 200,
+      "revenue": 2491,
+      "unknownStudents": 0,
+      "durationMs": 2
+    },
+    {
+      "id": "P2-13",
+      "name": "Exclusão de usuário inexistente retorna 404",
+      "passed": true,
+      "status": 404,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 5
+    },
+    {
+      "id": "P2-14",
+      "name": "Cartão numérico retorna 400 e servidor continua disponível",
+      "passed": true,
+      "status": 400,
+      "subsequentRequestStatus": 200,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 6
+    },
+    {
+      "id": "AUTH-01",
+      "name": "Token administrativo incorreto não permite ler ou excluir",
+      "passed": true,
+      "statuses": [
+        401,
+        401
+      ],
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 6
+    },
+    {
+      "id": "AUTH-02",
+      "name": "Exclusão anônima é negada",
+      "passed": true,
+      "status": 401,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 4
+    },
+    {
+      "id": "AUTH-03",
+      "name": "Email existente exige senha correta",
+      "passed": true,
+      "incorrectPasswordStatus": 401,
+      "missingPasswordStatus": 400,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 33
+    },
+    {
+      "id": "INPUT-01",
+      "name": "JSON malformado, ausente e estruturas inválidas retornam 400",
+      "passed": true,
+      "rejectedCases": 6,
+      "status": 400,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 20
+    },
+    {
+      "id": "INPUT-02",
+      "name": "Tipos e limites de campos são validados",
+      "passed": true,
+      "rejectedCases": 20,
+      "status": 400,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 88
+    },
+    {
+      "id": "INPUT-03",
+      "name": "Identificadores inválidos na exclusão são rejeitados",
+      "passed": true,
+      "rejectedCases": 5,
+      "status": 400,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 19
+    },
+    {
+      "id": "INPUT-04",
+      "name": "Curso inativo não aceita checkout",
+      "passed": true,
+      "status": 404,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 5
+    },
+    {
+      "id": "INPUT-05",
+      "name": "URI inválida, charset e payload excessivo têm erros controlados",
+      "passed": true,
+      "invalidUriStatus": 400,
+      "unsupportedCharsetStatus": 415,
+      "oversizedPayloadStatus": 413,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 12
+    },
+    {
+      "id": "CONFIG-01",
+      "name": "Configuração valida limites e exige senha explícita para seed",
+      "passed": true,
+      "rejectedConfigurations": 10,
+      "explicitDemoConfigAccepted": true,
+      "safeDefaults": true,
+      "durationMs": 0
+    },
+    {
+      "id": "DELETE-01",
+      "name": "Administrador exclui usuário sem dependências",
+      "passed": true,
+      "status": 200,
+      "removedUsers": 1,
+      "otherStoredFieldsUnchanged": true,
+      "durationMs": 32
+    },
+    {
+      "id": "PASSWORD-01",
+      "name": "Hashes usam salt, verificam senhas e seed não guarda texto",
+      "passed": true,
+      "independentSalts": true,
+      "correctPasswordAccepted": true,
+      "incorrectPasswordRejected": true,
+      "seedHashed": true,
+      "durationMs": 120
+    },
+    {
+      "id": "ROLLBACK-01",
+      "name": "Falha em payments reverte checkout inteiro e permite recuperação",
+      "passed": true,
+      "failedRequestStatus": 500,
+      "allStoredFieldsUnchangedAfterFailure": true,
+      "recoveryStatus": 200,
+      "durationMs": 54
+    },
+    {
+      "id": "ROLLBACK-02",
+      "name": "Falha em audit_logs reverte checkout inteiro e permite recuperação",
+      "passed": true,
+      "failedRequestStatus": 500,
+      "allStoredFieldsUnchangedAfterFailure": true,
+      "recoveryStatus": 200,
+      "durationMs": 54
+    },
+    {
+      "id": "ERROR-01",
+      "name": "Falha em leitura financeira retorna 500 sanitizado",
+      "passed": true,
+      "failedRequestStatus": 500,
+      "recoveryStatus": 200,
+      "durationMs": 5
+    },
+    {
+      "id": "CONCURRENCY-01",
+      "name": "Checkouts concorrentes reutilizam uma conta sem duplicação",
+      "passed": true,
+      "statuses": [
+        200,
+        200
+      ],
+      "createdUsers": 1,
+      "createdEnrollments": 2,
+      "durationMs": 49
+    },
+    {
+      "id": "CONCURRENCY-02",
+      "name": "Leituras aguardam transação e não observam estado revertido",
+      "passed": true,
+      "readBlockedUntilRollback": true,
+      "dirtyRowsObserved": 0,
+      "httpStatus": 200,
+      "durationMs": 46
+    },
+    {
+      "id": "REPORT-01",
+      "name": "Relatório executa uma consulta com volume pequeno e grande",
+      "passed": true,
+      "small": 1,
+      "large": 1,
+      "addedCourses": 25,
+      "durationMs": 37
+    },
+    {
+      "id": "INTEGRITY-01",
+      "name": "Chaves estrangeiras bloqueiam referências inexistentes",
+      "passed": true,
+      "invalidReferenceRejected": true,
+      "foreignKeyViolations": 0,
+      "allStoredFieldsUnchanged": true,
+      "durationMs": 2
+    },
+    {
+      "id": "OUTPUT-01",
+      "name": "Respostas públicas e logs não contêm credenciais ou dados de pagamento",
+      "passed": true,
+      "sensitiveMarkersFound": 0,
+      "sanitizedErrorDiagnosticsPresent": true,
+      "durationMs": 3
+    },
+    {
+      "id": "AUTH-04",
+      "name": "Sem token configurado as rotas administrativas permanecem bloqueadas",
+      "passed": true,
+      "rejectedCases": 4,
+      "status": 401,
+      "defaultBootUnseeded": true,
+      "durationMs": 8
+    }
+  ],
+  "measurements": {
+    "reportQueries": {
+      "small": 1,
+      "large": 1,
+      "addedCourses": 25
+    }
+  },
+  "limits": [
+    "Operation coverage is not line coverage or a load test.",
+    "Payments remain simulated; no gateway, real card or external notification is used.",
+    "The default database remains ephemeral; no persistent-data migration is claimed."
+  ],
+  "boot": "passed: current application factory, real loopback HTTP",
+  "operationCoverage": {
+    "exercised": 3,
+    "inventoried": 3
+  },
+  "summary": {
+    "total": 34,
+    "passed": 34,
+    "failed": 0
+  }
+}
