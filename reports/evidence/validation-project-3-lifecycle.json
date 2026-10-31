@@ -1,0 +1,180 @@
+{
+  "project": "task-manager-api",
+  "started_at_utc": "2026-10-31T14:55:23.561413+00:00",
+  "timestamp_utc": "2026-10-31T14:55:27.199546+00:00",
+  "scope": "Current sources, subprocess CLI, disposable legacy-schema and seed databases",
+  "versions": {
+    "python": "3.14.4",
+    "flask": "3.0.0",
+    "flask-sqlalchemy": "3.1.1",
+    "flask-cors": "4.0.0",
+    "sqlalchemy": "2.1.6",
+    "werkzeug": "3.1.9"
+  },
+  "sqlite": "3.46.1",
+  "source_hashes": {
+    "app.py": "5b65215e162826a2d1aac925a856b9da6014de79a3bf3601c62e725e7c03d7bb",
+    "config.py": "1b9428bd4cb1cc0c5602b3818766f1a475658ca7aea6a08c714bcadb47e686fe",
+    "controllers/__init__.py": "1e5dd1421477f093d8463885f0d69577644c6f9960ff6dc1e21347964848e69c",
+    "controllers/categories.py": "0acfc7fd9a63064f78abb20c77ba7ea568079d8e896181720a52862363e8b244",
+    "controllers/reports.py": "d15a01b7afd6ff8ebb8e9c034a6b0ad0b8b678e032eeba3b4067c6b4f5c4364e",
+    "controllers/tasks.py": "5b6509594e18c1e188b867c8fb2229a776bafbb91fe55045933332ccf4f2afc3",
+    "controllers/users.py": "8ac5c638ff1ec72097a48f617a470ec848e899c330b954f75bf1d54c3606bdf1",
+    "database.py": "66598129fd5bed8eb95dfbf126881384ce4a36c272c5ecfdeacb6f96a48129b7",
+    "errors.py": "1a551cf7808a781d3c122a2fe8f12e4616c432596dde09540c38d0589afe90b9",
+    "models/__init__.py": "706f2d67d6d11df57f0a3b12e0bf88827e9e56a53171a190a19c572186be41d0",
+    "models/auth_session.py": "a055d9e8e1c41f99aac027ca22bfafecd7c619063a4729ec39d7ce6da96f2f59",
+    "models/category.py": "eaf3bf90052fe1ef70d4bc21cbd556f96ecb113c3fab873e951da51819ddc8a7",
+    "models/category_repository.py": "1e7c6b7cfdea5029c66f61ededff6551355b2829a8ea17f75ef464613da18f9e",
+    "models/task.py": "95c1edfd256cdec0b7682414387dca62ffe40edd682eb0dc67986d642f658508",
+    "models/task_repository.py": "50612d1bae5b1acfa3bad59c38a377325ca444161f469679ce0dd389f057800a",
+    "models/user.py": "de145f1e371742cae8567f4b2e6149f137574af3ed48321228b610250b791f0d",
+    "models/user_repository.py": "d64b31a278b27864ac29b47751bd996c15a9f27a0c5acfe9ca88bc149ecd5c98",
+    "routes/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "routes/report_routes.py": "58fcc3b9fa6b6aa0661f8ebdc232b66e86fcd02f743a27edb6994a2d9f3faee5",
+    "routes/task_routes.py": "e4f1e142d471e6c7321ebffef7c147bc059497f56c71b8b724e5b698a7f05f0d",
+    "routes/user_routes.py": "ac25ecc18ea0e14ae155494ef1ce18eaaa3c7f6038a908f2e4c8b36e9467e931",
+    "seed.py": "d91d5253fcd8293f3e11949bc4a5c400b40efd63d48be4324af1c893b8fa055e",
+    "services/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "services/authentication.py": "a9822a082e8c1f341f1c3c87bdc487a9dc4741c876b0fcd40eff6838d3a21a4e",
+    "services/reporting.py": "d72a24a16cd6fae0128e531c7c78fabe83bae01d916f6e255031ccb56b8fee22",
+    "services/task_rules.py": "5a81b5a57d119c4dcdd7ae3c2500e0b5363bf89774bdaaac7ffe0041b7ca4d26",
+    "services/text_validation.py": "428efceeed5cb69682b6ceea05394f32205d4af6fdfaf1eba957c11909a0571e",
+    "services/user_validation.py": "7951b33c0ffdbeb2ce87ede60d62b7b9e010060105388fecca47e0157e0d4a44",
+    "tests/check_lifecycle.py": "44b185162571ae979d099f0672ee3712bd7ccd230a007b1f36f71f58b8607328",
+    "tests/run_validation.py": "28290dabe7d5fadf83010563aaea8754a4b6c105bfcb0e7df22f1f62d340598c",
+    "utils/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "utils/helpers.py": "6bca62e155e1ee0c435c6120ae833790db2bade06dfd292f8e74aeeaa1032853",
+    "views/__init__.py": "1d9f8201a56309f04605e033ebd161599e14af75c502771bcd193a6ff7b70c4a",
+    "views/auth.py": "3022a9e411677168918342ce6627196c99165215f5e65fd73d29d789d1ed0849",
+    "views/categories.py": "1c87441e2e9e1ceafd859091ee9df0d0b73429eb158dd76212c8cd89f8420609",
+    "views/tasks.py": "7df2ff603a9dda523dfd33eaafd3154f9536e834396626ef0b5dc9249162747b",
+    "views/users.py": "6104a82aeaf7d650c7a182e8bb5e774e08e4c82d91b3cdc591ede38861912733"
+  },
+  "source_hashes_after": {
+    "app.py": "5b65215e162826a2d1aac925a856b9da6014de79a3bf3601c62e725e7c03d7bb",
+    "config.py": "1b9428bd4cb1cc0c5602b3818766f1a475658ca7aea6a08c714bcadb47e686fe",
+    "controllers/__init__.py": "1e5dd1421477f093d8463885f0d69577644c6f9960ff6dc1e21347964848e69c",
+    "controllers/categories.py": "0acfc7fd9a63064f78abb20c77ba7ea568079d8e896181720a52862363e8b244",
+    "controllers/reports.py": "d15a01b7afd6ff8ebb8e9c034a6b0ad0b8b678e032eeba3b4067c6b4f5c4364e",
+    "controllers/tasks.py": "5b6509594e18c1e188b867c8fb2229a776bafbb91fe55045933332ccf4f2afc3",
+    "controllers/users.py": "8ac5c638ff1ec72097a48f617a470ec848e899c330b954f75bf1d54c3606bdf1",
+    "database.py": "66598129fd5bed8eb95dfbf126881384ce4a36c272c5ecfdeacb6f96a48129b7",
+    "errors.py": "1a551cf7808a781d3c122a2fe8f12e4616c432596dde09540c38d0589afe90b9",
+    "models/__init__.py": "706f2d67d6d11df57f0a3b12e0bf88827e9e56a53171a190a19c572186be41d0",
+    "models/auth_session.py": "a055d9e8e1c41f99aac027ca22bfafecd7c619063a4729ec39d7ce6da96f2f59",
+    "models/category.py": "eaf3bf90052fe1ef70d4bc21cbd556f96ecb113c3fab873e951da51819ddc8a7",
+    "models/category_repository.py": "1e7c6b7cfdea5029c66f61ededff6551355b2829a8ea17f75ef464613da18f9e",
+    "models/task.py": "95c1edfd256cdec0b7682414387dca62ffe40edd682eb0dc67986d642f658508",
+    "models/task_repository.py": "50612d1bae5b1acfa3bad59c38a377325ca444161f469679ce0dd389f057800a",
+    "models/user.py": "de145f1e371742cae8567f4b2e6149f137574af3ed48321228b610250b791f0d",
+    "models/user_repository.py": "d64b31a278b27864ac29b47751bd996c15a9f27a0c5acfe9ca88bc149ecd5c98",
+    "routes/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "routes/report_routes.py": "58fcc3b9fa6b6aa0661f8ebdc232b66e86fcd02f743a27edb6994a2d9f3faee5",
+    "routes/task_routes.py": "e4f1e142d471e6c7321ebffef7c147bc059497f56c71b8b724e5b698a7f05f0d",
+    "routes/user_routes.py": "ac25ecc18ea0e14ae155494ef1ce18eaaa3c7f6038a908f2e4c8b36e9467e931",
+    "seed.py": "d91d5253fcd8293f3e11949bc4a5c400b40efd63d48be4324af1c893b8fa055e",
+    "services/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "services/authentication.py": "a9822a082e8c1f341f1c3c87bdc487a9dc4741c876b0fcd40eff6838d3a21a4e",
+    "services/reporting.py": "d72a24a16cd6fae0128e531c7c78fabe83bae01d916f6e255031ccb56b8fee22",
+    "services/task_rules.py": "5a81b5a57d119c4dcdd7ae3c2500e0b5363bf89774bdaaac7ffe0041b7ca4d26",
+    "services/text_validation.py": "428efceeed5cb69682b6ceea05394f32205d4af6fdfaf1eba957c11909a0571e",
+    "services/user_validation.py": "7951b33c0ffdbeb2ce87ede60d62b7b9e010060105388fecca47e0157e0d4a44",
+    "tests/check_lifecycle.py": "44b185162571ae979d099f0672ee3712bd7ccd230a007b1f36f71f58b8607328",
+    "tests/run_validation.py": "28290dabe7d5fadf83010563aaea8754a4b6c105bfcb0e7df22f1f62d340598c",
+    "utils/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "utils/helpers.py": "6bca62e155e1ee0c435c6120ae833790db2bade06dfd292f8e74aeeaa1032853",
+    "views/__init__.py": "1d9f8201a56309f04605e033ebd161599e14af75c502771bcd193a6ff7b70c4a",
+    "views/auth.py": "3022a9e411677168918342ce6627196c99165215f5e65fd73d29d789d1ed0849",
+    "views/categories.py": "1c87441e2e9e1ceafd859091ee9df0d0b73429eb158dd76212c8cd89f8420609",
+    "views/tasks.py": "7df2ff603a9dda523dfd33eaafd3154f9536e834396626ef0b5dc9249162747b",
+    "views/users.py": "6104a82aeaf7d650c7a182e8bb5e774e08e4c82d91b3cdc591ede38861912733"
+  },
+  "checks": [
+    {
+      "name": "Importação e configuração padrão funcionam",
+      "passed": true
+    },
+    {
+      "name": "Importação não cria arquivo SQLite",
+      "passed": true
+    },
+    {
+      "name": "init-db executa sobre schema legado",
+      "passed": true
+    },
+    {
+      "name": "Todos os valores e IDs legados preservados",
+      "passed": true
+    },
+    {
+      "name": "Migração adiciona somente tabela de sessões",
+      "passed": true
+    },
+    {
+      "name": "init-db é idempotente",
+      "passed": true
+    },
+    {
+      "name": "Provisionamento sem credenciais falha sem escrita",
+      "passed": true
+    },
+    {
+      "name": "Provisionamento explícito cria admin",
+      "passed": true
+    },
+    {
+      "name": "Admin recebe hash atual verificável",
+      "passed": true
+    },
+    {
+      "name": "Email existente não é sobrescrito nem promovido",
+      "passed": true
+    },
+    {
+      "name": "Comando não imprime senha administrativa",
+      "passed": true
+    },
+    {
+      "name": "Seed exige senha externa sem criar banco",
+      "passed": true
+    },
+    {
+      "name": "Seed exige escolha explícita de banco",
+      "passed": true
+    },
+    {
+      "name": "Seed explícito funciona",
+      "passed": true
+    },
+    {
+      "name": "Seed popula 3 usuários, 4 categorias e 10 tarefas",
+      "passed": true
+    },
+    {
+      "name": "Seed recusa banco populado sem reset",
+      "passed": true
+    },
+    {
+      "name": "Reset e seed falhos fazem rollback de todos os dados",
+      "passed": true
+    },
+    {
+      "name": "Reset explícito funciona após remover falha",
+      "passed": true
+    },
+    {
+      "name": "Seed não imprime credencial externa",
+      "passed": true
+    },
+    {
+      "name": "Fixtures não têm referências órfãs",
+      "passed": true
+    },
+    {
+      "name": "Fontes permanecem iguais durante a validação de lifecycle",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

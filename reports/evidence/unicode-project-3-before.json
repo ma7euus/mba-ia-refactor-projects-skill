@@ -1,0 +1,34 @@
+{
+  "project": "task-manager-api",
+  "scope": "Pre-correction C-01 reproduction, isolated Flask client and temporary SQLite",
+  "source_sha256": "66c2f321a5a2d85d8ea18493c057bf137dfe950f0cfc83a384e90b34e00232d4",
+  "results": [
+    {
+      "name": "Cadastro com senha surrogate isolado",
+      "method": "POST",
+      "path": "/users",
+      "status": 500,
+      "response": {
+        "error": "Erro interno"
+      }
+    },
+    {
+      "name": "Cadastro com nome surrogate isolado",
+      "method": "POST",
+      "path": "/users",
+      "status": 500,
+      "response": {
+        "error": "Erro interno"
+      }
+    },
+    {
+      "name": "Login com senha surrogate isolado",
+      "method": "POST",
+      "path": "/login",
+      "status": 500,
+      "response": {
+        "error": "Erro interno"
+      }
+    }
+  ]
+}

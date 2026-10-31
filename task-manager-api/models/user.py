@@ -1,6 +1,11 @@
-from database import db
-from datetime import datetime
 import hashlib
+import hmac
+import re
+
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from database import db
+from utils.helpers import utc_now
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -11,28 +16,21 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(50), default='user')
     active = db.Column(db.Boolean, default=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'email': self.email,
-            'password': self.password,
-            'role': self.role,
-            'active': self.active,
-            'created_at': str(self.created_at)
-        }
+    created_at = db.Column(db.DateTime, default=utc_now)
 
     def set_password(self, pwd):
-
-        self.password = hashlib.md5(pwd.encode()).hexdigest()
+        self.password = generate_password_hash(pwd)
 
     def check_password(self, pwd):
-        return self.password == hashlib.md5(pwd.encode()).hexdigest()
+        if self.has_legacy_password():
+            # Only verification of existing records uses MD5. A successful login
+            # replaces this digest with a salted password hash in its transaction.
+            candidate = hashlib.md5(pwd.encode(), usedforsecurity=False).hexdigest()
+            return hmac.compare_digest(self.password.lower(), candidate)
+        return check_password_hash(self.password, pwd)
+
+    def has_legacy_password(self):
+        return bool(re.fullmatch(r'[0-9a-fA-F]{32}', self.password or ''))
 
     def is_admin(self):
-        if self.role == 'admin':
-            return True
-        else:
-            return False
+        return self.role == 'admin'
