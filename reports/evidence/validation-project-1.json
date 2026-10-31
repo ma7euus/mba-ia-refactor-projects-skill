@@ -1,0 +1,1376 @@
+{
+  "source": "current working tree (no git archive)",
+  "command": ".venv/bin/python tests/run_validation.py",
+  "python": "3.14.4",
+  "sqlite": "3.46.1",
+  "tests_run": 15,
+  "failures": 0,
+  "errors": 0,
+  "passed": true,
+  "baseline_scenarios": 39,
+  "http_checks": 155,
+  "operations_exercised": 19,
+  "operations_expected": 19,
+  "uncovered_operations": [],
+  "checks": [
+    {
+      "case": "legacy migration preserves IDs/history/password login; idempotent; admin reset",
+      "passed": true
+    },
+    {
+      "case": "orphan migration abort preserves all legacy data",
+      "passed": true
+    },
+    {
+      "case": "long legacy password still authenticates after migration",
+      "passed": true
+    },
+    {
+      "case": "unexpected failure returns sanitized 500 and sanitized diagnostic",
+      "passed": true
+    },
+    {
+      "case": "mid-migration hashing failure rolls back schema, passwords, IDs and sequences",
+      "passed": true
+    },
+    {
+      "case": "migration preserves reordered columns and their numeric meanings",
+      "passed": true
+    },
+    {
+      "case": "finite individual sales aggregate overflow returns 409 without nonfinite JSON",
+      "passed": true
+    },
+    {
+      "case": "explicit CLI initialization and administrator provisioning",
+      "passed": true
+    },
+    {
+      "case": "order queries bounded at 1/20 orders; strict discount thresholds",
+      "passed": true
+    },
+    {
+      "case": "P1-01 raiz",
+      "method": "GET",
+      "route": "/",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-02 health",
+      "method": "GET",
+      "route": "/health",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-03 catálogo",
+      "method": "GET",
+      "route": "/produtos",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-04 detalhe produto",
+      "method": "GET",
+      "route": "/produtos/<int:id>",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-05 produto ausente",
+      "method": "GET",
+      "route": "/produtos/999999",
+      "expected_status": 404,
+      "observed_status": 404,
+      "passed": true
+    },
+    {
+      "case": "P1-06 busca",
+      "method": "GET",
+      "route": "/produtos/busca",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-07 preço textual",
+      "method": "GET",
+      "route": "/produtos/busca",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-08 usuários",
+      "method": "GET",
+      "route": "/usuarios",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-09 detalhe usuário",
+      "method": "GET",
+      "route": "/usuarios/<int:id>",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-10 usuário ausente",
+      "method": "GET",
+      "route": "/usuarios/999999",
+      "expected_status": 404,
+      "observed_status": 404,
+      "passed": true
+    },
+    {
+      "case": "P1-11 cadastro",
+      "method": "POST",
+      "route": "/usuarios",
+      "expected_status": 201,
+      "observed_status": 201,
+      "passed": true
+    },
+    {
+      "case": "P1-12 cadastro incompleto",
+      "method": "POST",
+      "route": "/usuarios",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-13 login",
+      "method": "POST",
+      "route": "/login",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-14 login incorreto",
+      "method": "POST",
+      "route": "/login",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "P1-15 login incompleto",
+      "method": "POST",
+      "route": "/login",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-16 criar produto",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 201,
+      "observed_status": 201,
+      "passed": true
+    },
+    {
+      "case": "P1-17 editar produto",
+      "method": "PUT",
+      "route": "/produtos/<int:id>",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-18 preço negativo",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-19 preço textual corrigido",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-20 apóstrofo",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 201,
+      "observed_status": 201,
+      "passed": true
+    },
+    {
+      "case": "P1-21 editar ausente",
+      "method": "PUT",
+      "route": "/produtos/999999",
+      "expected_status": 404,
+      "observed_status": 404,
+      "passed": true
+    },
+    {
+      "case": "P1-22 criar pedido",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 201,
+      "observed_status": 201,
+      "passed": true
+    },
+    {
+      "case": "P1-23 listar pedidos",
+      "method": "GET",
+      "route": "/pedidos",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-24 pedidos usuário",
+      "method": "GET",
+      "route": "/pedidos/usuario/<int:usuario_id>",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-25 aprovar pedido",
+      "method": "PUT",
+      "route": "/pedidos/<int:pedido_id>/status",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-26 status inválido",
+      "method": "PUT",
+      "route": "/pedidos/1/status",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-27 status ausente corrigido",
+      "method": "PUT",
+      "route": "/pedidos/999999/status",
+      "expected_status": 404,
+      "observed_status": 404,
+      "passed": true
+    },
+    {
+      "case": "P1-28 relatório",
+      "method": "GET",
+      "route": "/relatorios/vendas",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-29 estoque insuficiente",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-30 produto inexistente",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-31 sem itens",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-32 quantidade negativa corrigida",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-33 usuário inexistente corrigido",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 404,
+      "observed_status": 404,
+      "passed": true
+    },
+    {
+      "case": "P1-34 excluir produto",
+      "method": "DELETE",
+      "route": "/produtos/<int:id>",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "P1-35 exclusão repetida",
+      "method": "DELETE",
+      "route": "/produtos/11",
+      "expected_status": 404,
+      "observed_status": 404,
+      "passed": true
+    },
+    {
+      "case": "P1-36 exclusão ausente",
+      "method": "DELETE",
+      "route": "/produtos/999999",
+      "expected_status": 404,
+      "observed_status": 404,
+      "passed": true
+    },
+    {
+      "case": "P1-37 consulta anônima corrigida",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "P1-38 consulta incompleta",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "P1-39 reset anônimo corrigido",
+      "method": "POST",
+      "route": "/admin/reset-db",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "GET",
+      "route": "/usuarios",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "GET",
+      "route": "/usuarios",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "GET",
+      "route": "/usuarios",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "GET",
+      "route": "/pedidos",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "GET",
+      "route": "/pedidos",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "GET",
+      "route": "/pedidos",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "GET",
+      "route": "/relatorios/vendas",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "GET",
+      "route": "/relatorios/vendas",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "GET",
+      "route": "/relatorios/vendas",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "DELETE",
+      "route": "/produtos/2",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "DELETE",
+      "route": "/produtos/2",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "DELETE",
+      "route": "/produtos/2",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "PUT",
+      "route": "/pedidos/1/status",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "PUT",
+      "route": "/pedidos/1/status",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "PUT",
+      "route": "/pedidos/1/status",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "POST",
+      "route": "/admin/reset-db",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "POST",
+      "route": "/admin/reset-db",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "permission boundary",
+      "method": "POST",
+      "route": "/admin/reset-db",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "cross-user detalhe",
+      "method": "GET",
+      "route": "/usuarios/3",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "cross-user pedidos",
+      "method": "GET",
+      "route": "/pedidos/usuario/3",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "cross-user criação",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 403,
+      "observed_status": 403,
+      "passed": true
+    },
+    {
+      "case": "own user detail",
+      "method": "GET",
+      "route": "/usuarios/<int:id>",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "own order listing",
+      "method": "GET",
+      "route": "/pedidos/usuario/<int:usuario_id>",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "own order creation",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 201,
+      "observed_status": 201,
+      "passed": true
+    },
+    {
+      "case": "bounded admin count",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "bounded admin count",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "bounded admin count",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "bounded admin count",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "arbitrary SQL refused",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "arbitrary SQL refused",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "arbitrary SQL refused",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "arbitrary SQL refused",
+      "method": "POST",
+      "route": "/admin/query",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "reset confirmation required",
+      "method": "POST",
+      "route": "/admin/reset-db",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "authorized disposable reset",
+      "method": "POST",
+      "route": "/admin/reset-db",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "no implicit reseed after reset",
+      "method": "GET",
+      "route": "/produtos",
+      "expected_status": 200,
+      "observed_status": 200,
+      "passed": true
+    },
+    {
+      "case": "invalid JSON structure",
+      "method": "POST",
+      "route": "/usuarios",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid JSON structure",
+      "method": "POST",
+      "route": "/usuarios",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid JSON structure",
+      "method": "POST",
+      "route": "/usuarios",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid JSON structure",
+      "method": "POST",
+      "route": "/usuarios",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid JSON structure",
+      "method": "POST",
+      "route": "/usuarios",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "malformed JSON",
+      "method": "POST",
+      "route": "/usuarios",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product field",
+      "method": "POST",
+      "route": "/produtos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid product edit",
+      "method": "PUT",
+      "route": "/produtos/2",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order quantity",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order quantity",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order quantity",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order quantity",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order quantity",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order quantity",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order items",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order items",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order items",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order items",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid order items",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid owner ID before authorization",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid owner ID before authorization",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid owner ID before authorization",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid owner ID before authorization",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid owner ID before authorization",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "duplicate products aggregate stock",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "public role escalation",
+      "method": "POST",
+      "route": "/usuarios",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "literal SQL login",
+      "method": "POST",
+      "route": "/login",
+      "expected_status": 401,
+      "observed_status": 401,
+      "passed": true
+    },
+    {
+      "case": "invalid search range",
+      "method": "GET",
+      "route": "/produtos/busca",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid search range",
+      "method": "GET",
+      "route": "/produtos/busca",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid search range",
+      "method": "GET",
+      "route": "/produtos/busca",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "invalid search range",
+      "method": "GET",
+      "route": "/produtos/busca",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "out of SQLite range path ID",
+      "method": "GET",
+      "route": "/produtos/9223372036854775808",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "out of SQLite range path ID",
+      "method": "GET",
+      "route": "/usuarios/9223372036854775808",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "out of SQLite range path ID",
+      "method": "GET",
+      "route": "/pedidos/usuario/9223372036854775808",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "out of SQLite range path ID",
+      "method": "PUT",
+      "route": "/pedidos/9223372036854775808/status",
+      "expected_status": 400,
+      "observed_status": 400,
+      "passed": true
+    },
+    {
+      "case": "rollback on second item integrity failure",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 409,
+      "observed_status": 409,
+      "passed": true
+    },
+    {
+      "case": "successful request after rollback",
+      "method": "POST",
+      "route": "/pedidos",
+      "expected_status": 201,
+      "observed_status": 201,
+      "passed": true
+    },
+    {
+      "case": "referenced product restrict",
+      "method": "DELETE",
+      "route": "/produtos/2",
+      "expected_status": 409,
+      "observed_status": 409,
+      "passed": true
+    },
+    {
+      "case": "concurrent stock reservation",
+      "passed": true,
+      "observed_statuses": [
+        201,
+        400
+      ]
+    },
+    {
+      "case": "boot without automatic database or seed; restricted reset",
+      "passed": true
+    },
+    {
+      "case": "runtime route inventory",
+      "passed": true,
+      "operations": 19
+    }
+  ],
+  "boot_log": [
+    " * Serving Flask app 'src'",
+    " * Debug mode: off",
+    " * Running on http://127.0.0.1:57147",
+    " * Serving Flask app 'src'",
+    " * Debug mode: off",
+    " * Running on http://127.0.0.1:48045",
+    " * Serving Flask app 'src'",
+    " * Debug mode: off",
+    " * Running on http://127.0.0.1:45437",
+    " * Serving Flask app 'src'",
+    " * Debug mode: off",
+    " * Running on http://127.0.0.1:59473"
+  ],
+  "validated_at_utc": "2026-10-31T01:26:17.248354+00:00",
+  "base_head": "7ddd47686a1fc6c6be968b9adf9789ee18ae3ce5",
+  "source_sha256": {
+    "code-smells-project/app.py": "3d0ed33737a2d24a913eee96181805ab1292f60f08d82bb352f0e0af41166afe",
+    "code-smells-project/src/__init__.py": "94446bd887da98e14f25722439bd377dc1547a510124f97a5a4867d80e73555d",
+    "code-smells-project/src/cli.py": "1f103db68e289cd94345a1989d3348ac546d1302075f6dd796de27e2f7927b41",
+    "code-smells-project/src/config.py": "b39facdf101e16d2e3e5fce69dacd86ad340a9014462bc36916f8b059855d15f",
+    "code-smells-project/src/controllers/__init__.py": "7e4bf76b8301e762c0a2571ce2166faab8f2d46e4804d218d5bd8e33f4d14f56",
+    "code-smells-project/src/controllers/orders.py": "4fa9d94030aff0ad70c9e70e57e2d5c6c63dc39be7e40cdf9ec3b1e52f00cc74",
+    "code-smells-project/src/controllers/products.py": "be88a3b3e1cc7145fe56290e8aa8707cf98c820fdafb7391adaaa9c436e12ed6",
+    "code-smells-project/src/controllers/system.py": "f70ca7ac6052cf920b59f278c2019ffd5a1b30e29d2c801579de1b26428257a9",
+    "code-smells-project/src/controllers/users.py": "c0f8aed0dfdbe330003f9af8af071ef115130b35e24de91a0cda4829c82ca9e5",
+    "code-smells-project/src/database.py": "1a7a956fa2835a0373b14bc7cb19e5e89cfd0c82bd721d5f6019a1608ab6359b",
+    "code-smells-project/src/errors.py": "178a55cf3d2f96306468b31ba269df4a5825a2f55d8d1510dfa4d290772688c8",
+    "code-smells-project/src/models/__init__.py": "918e212dbc3d89c40ed85e4923f00ea067f9fd661a09dc7d904c3511d2140783",
+    "code-smells-project/src/models/orders.py": "c4e3b9469bed4527f023a55eda43084fb89df4175ad550f0fdcef5f43f94886e",
+    "code-smells-project/src/models/products.py": "2696f48652d85687def2f3a68186c7b4f5577f3ac97c2c260d2bbb3b233fac85",
+    "code-smells-project/src/models/reports.py": "27ee0ba130d2112f027e44d0631188f90411a9d4b98898770a93af25c0b43d07",
+    "code-smells-project/src/models/system.py": "34bc8a833bae43b912205a4b94585496c64ec4f6ccdf3b699fb10ba1736781b9",
+    "code-smells-project/src/models/users.py": "6777fecd6eba2d000a07f267b35e50bea92f133b57697d79709d1b949a153a08",
+    "code-smells-project/src/services/__init__.py": "d0a751a0e56b6a9c833e6439b155988c31479874d241c05fe3f075498581bf41",
+    "code-smells-project/src/services/admin.py": "f669608f7177c79b4daea8c04fb17a701a09daa2586286368550056aa95be776",
+    "code-smells-project/src/services/orders.py": "38e26203cdaff4f1c68fdc9d8c6a4bcfdeade02813b662c204de44afd6d34354",
+    "code-smells-project/src/services/products.py": "fd656ddc8925030bd127488e9ef6edde2b154c8738992977567eb62df364110a",
+    "code-smells-project/src/services/reports.py": "ce80f7d5fbb1a62457430a4a9e0039e1532dde5fa5ea9f7035001e42590b24d7",
+    "code-smells-project/src/services/users.py": "a29df8d35df6a5053fc15c862ed1f89347cb8ef513d1f0e63cda02d6c8fcda1f",
+    "code-smells-project/src/validation.py": "9dfdd8ae69fb8e0b4a9c60cc458b26b51e5915fc4639e4804c0ffe6accae4064",
+    "code-smells-project/src/views/__init__.py": "60d9f1387e7d98c2d2d05c46d07c02f7e567578cd65da30a1290dc7a60242821",
+    "code-smells-project/src/views/auth.py": "a61e1ebb2055d982027cea55573d58f1f282664788ff4eb7d00b9fe8eb78444b",
+    "code-smells-project/src/views/routes.py": "0ce80f81ea514b3e6df4c95321aa5a0d5a2fa602610cff0f3c9b2ae3a72f0005",
+    "code-smells-project/src/views/serializers.py": "d167a100ddd3398542b3b307ed87bfc3afa16fd1c20dec1302b9d3a818f2341a",
+    "code-smells-project/requirements.txt": "4b1fc5a5d5023771e4d7ae312687cd2c98f3331b2497f5c82053672964fa9835",
+    "code-smells-project/tests/run_validation.py": "d59aaf55fe35a282968849f02ec4e07eb82202855c5194632cb73b6d61c2d94f"
+  },
+  "environment": {
+    "python": "3.14.4",
+    "sqlite": "3.46.1",
+    "flask": "3.1.1",
+    "flask-cors": "5.0.1",
+    "Werkzeug": "3.1.9"
+  },
+  "local_database_preserved": {
+    "path": "code-smells-project/loja.db",
+    "before_sha256": "580f493b6c81905b618c3234453c87a44b70d2e0ec6ae048e0b6247959045c73",
+    "after_sha256": "580f493b6c81905b618c3234453c87a44b70d2e0ec6ae048e0b6247959045c73",
+    "unchanged": true
+  },
+  "source_inventory": {
+    "python_files": 28,
+    "physical_lines": 1249,
+    "includes": "app.py and src/**/*.py, including blank lines/comments/empty modules; excludes tests, skill, dependencies, caches, databases and reports"
+  }
+}

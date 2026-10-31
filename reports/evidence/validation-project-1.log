@@ -1,0 +1,36 @@
+COMMAND: .venv/bin/python tests/run_validation.py
+SOURCE: current working tree; temporary SQLite databases; real loopback HTTP
+
+ * Serving Flask app 'src'
+ * Debug mode: off
+ * Running on http://127.0.0.1:57147
+ * Serving Flask app 'src'
+ * Debug mode: off
+ * Running on http://127.0.0.1:48045
+ * Serving Flask app 'src'
+ * Debug mode: off
+ * Running on http://127.0.0.1:45437
+ * Serving Flask app 'src'
+ * Debug mode: off
+ * Running on http://127.0.0.1:59473
+
+test_07_legacy_migration_idempotency_ids_and_admin_reset (__main__.DomainValidation.test_07_legacy_migration_idempotency_ids_and_admin_reset) ... ok
+test_08_migration_orphan_abort_without_writes (__main__.DomainValidation.test_08_migration_orphan_abort_without_writes) ... ok
+test_08b_long_legacy_password_survives_migration (__main__.DomainValidation.test_08b_long_legacy_password_survives_migration) ... ok
+test_08c_unexpected_failure_sanitizes_response_and_logs (__main__.DomainValidation.test_08c_unexpected_failure_sanitizes_response_and_logs) ... ok
+test_08d_mid_migration_failure_rolls_back_schema_and_data (__main__.DomainValidation.test_08d_mid_migration_failure_rolls_back_schema_and_data) ... ok
+test_08e_migration_uses_columns_instead_of_physical_order (__main__.DomainValidation.test_08e_migration_uses_columns_instead_of_physical_order) ... ok
+test_08f_aggregate_overflow_is_refused_without_infinity_json (__main__.DomainValidation.test_08f_aggregate_overflow_is_refused_without_infinity_json) ... ok
+test_09_cli_initialization_and_admin_provisioning (__main__.DomainValidation.test_09_cli_initialization_and_admin_provisioning) ... ok
+test_10_batched_order_queries_and_discount_boundaries (__main__.DomainValidation.test_10_batched_order_queries_and_discount_boundaries) ... ok
+test_01_baseline_39_cases_with_approved_corrections (__main__.HttpValidation.test_01_baseline_39_cases_with_approved_corrections) ... ok
+test_02_authorization_and_bounded_admin (__main__.HttpValidation.test_02_authorization_and_bounded_admin) ... ok
+test_03_invalid_shapes_types_and_quantities_preserve_state (__main__.HttpValidation.test_03_invalid_shapes_types_and_quantities_preserve_state) ... ok
+test_04_rollback_references_and_concurrent_stock (__main__.HttpValidation.test_04_rollback_references_and_concurrent_stock) ... ok
+test_05_reset_disabled_and_missing_database_boot (__main__.HttpValidation.test_05_reset_disabled_and_missing_database_boot) ... ok
+test_06_runtime_operation_inventory (__main__.HttpValidation.test_06_runtime_operation_inventory) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 8.502s
+
+OK
