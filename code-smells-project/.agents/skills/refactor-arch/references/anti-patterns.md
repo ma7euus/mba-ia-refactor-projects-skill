@@ -12,7 +12,7 @@ HOW: Follow inputs, callers and effects; record exact source locations and the
 audited revision. WHY: A search hit is a candidate, not proof of a defect. -->
 
 1. Search for candidates, then read the enclosing function and relevant callers. Trace the input, responsibility or dependency that makes the pattern harmful.
-2. Record the repository-relative file, exact start/end lines in the audited source, a sanitized evidence excerpt, impact and recommendation. Keep the source revision from Phase 1; distinguish committed code from local changes.
+2. Record the project-relative source file (relative to the target root from Phase 1), exact start/end lines, a sanitized evidence excerpt, impact and recommendation. Keep the source revision from Phase 1; distinguish committed code from local changes.
 3. Use existing baseline evidence when available. During the read-only phases, do not boot applications, install dependencies, run seeds or invoke endpoints to prove a finding.
 4. Label each claim as static evidence or previously observed runtime evidence. State uncertainty explicitly; leave unconfirmed candidates out of confirmed-finding totals.
 5. Classify by demonstrated impact and reachability. Explain departures from the default severity below. Do not inflate severity or invent findings to meet a quota.
